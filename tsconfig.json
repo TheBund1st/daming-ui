@@ -1,0 +1,22 @@
+{
+  "compilerOptions": {
+    "jsx": "preserve",
+    "target": "es5",
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "module": "esnext",
+    "moduleResolution": "node",
+    "isolatedModules": true,
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "noEmit": true,
+    "noImplicitAny": false,
+    "experimentalDecorators": true,
+    "noUnusedParameters": false,
+    "noUnusedLocals": true
+  },
+  "include": ["src"]
+}
