@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-// import SMS_Verification from '../components/sms-verification'
 import {
   SMSV,
   Agreement,
@@ -15,15 +14,12 @@ class App extends Component {
   }
   render() {
     return (
-      // <div>
-      //   <SMS_Verification
-      //     fetchCodeApi="api/sms/verification/code"
-      //     verifyCodeApi="api/sms/verification/code"
-      //     scope="ABC"
-      //     callbackToken={this.onTokenBack}
-      //   />
-      // </div>
-      <SMSV>
+      <SMSV
+        fetchCodeApi="api/sms/verification/code"
+        verifyCodeApi="api/sms/verification/code"
+        scope="ABC"
+        callbackToken={this.onTokenBack}
+      >
         <PhoneNumber />
         <ImageVerification />
         <CodeVerification />
