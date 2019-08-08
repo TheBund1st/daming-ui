@@ -1,13 +1,30 @@
 // post url
 // enable by other component
-import React, { Component } from 'react'
+import React from 'react'
+import { Component } from '../baseComponent'
 
 type Props = {}
 
-type State = {}
+type State = {
+  isBtnEnable: boolean
+}
 
 export class Submit extends Component<Props, State> {
+  constructor(props: Props) {
+    super(props)
+    this.state = {
+      isBtnEnable: false,
+    }
+    this.eventsHub.registerSubmitStatusChange(this.setSubmitStatus)
+  }
+
+  setSubmitStatus = (enable: boolean) => {
+    this.setState({
+      isBtnEnable: enable,
+    })
+  }
+
   render() {
-    return <div>Submit</div>
+    return <div>{`submit: ${this.state.isBtnEnable}`}</div>
   }
 }

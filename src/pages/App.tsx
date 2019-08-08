@@ -1,12 +1,5 @@
 import React, { Component } from 'react'
-import {
-  SMSV,
-  Agreement,
-  CodeVerification,
-  ImageVerification,
-  PhoneNumber,
-  Submit,
-} from '../components/smsv'
+import smsv from '../components/smsv'
 
 class App extends Component {
   onTokenBack = (token: string) => {
@@ -14,19 +7,35 @@ class App extends Component {
   }
   render() {
     return (
-      <SMSV
-        fetchCodeApi="api/sms/verification/code"
-        verifyCodeApi="api/sms/verification/code"
-        scope="ABC"
-        callbackToken={this.onTokenBack}
-      >
-        <PhoneNumber />
-        <ImageVerification />
-        <CodeVerification />
-        <Agreement />
-        <Agreement />
-        <Submit />
-      </SMSV>
+      <>
+        <smsv.Container
+          fetchCodeApi="api/sms/verification/code"
+          verifyCodeApi="api/sms/verification/code"
+          scope="ABC"
+          callbackToken={this.onTokenBack}
+        >
+          <smsv.PhoneNumber />
+          {/* <smsv.ImageVerification /> */}
+          {/* <smsv.CodeVerification /> */}
+          <smsv.Agreement />
+          <smsv.Agreement />
+          <smsv.Submit />
+        </smsv.Container>
+
+        <smsv.Container
+          fetchCodeApi="api/sms/verification/code"
+          verifyCodeApi="api/sms/verification/code"
+          scope="ABC"
+          callbackToken={this.onTokenBack}
+        >
+          <smsv.PhoneNumber />
+          {/* <smsv.ImageVerification /> */}
+          {/* <smsv.CodeVerification /> */}
+          <smsv.Agreement />
+          <smsv.Agreement />
+          <smsv.Submit />
+        </smsv.Container>
+      </>
     )
   }
 }
