@@ -1,0 +1,30 @@
+.smsv-image-number-container {
+  width: 100%;
+  height: 60px;
+  .smsv-image-vesication-action-container {
+    display: flex;
+    align-items: center;
+    .smsv-image-vesication-refresh {
+      width: 30px;
+      height: 25px;
+      line-height: 25px;
+      cursor: pointer;
+      text-align: center;
+      outline: none;
+    }
+  }
+  .smsv-image-number-error-input {
+    input {
+      background-color: #fff;
+      border-color: #f5222d;
+    }
+  }
+  .smsv-image-number-error-tips {
+    color: #f5222d;
+    clear: both;
+    min-height: 22px;
+    margin-top: 2px;
+    font-size: 14px;
+    line-height: 1.5;
+  }
+}

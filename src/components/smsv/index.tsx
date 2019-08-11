@@ -1,18 +1,18 @@
-import React, { Component } from 'react'
-import { Agreement } from './agreement'
-import { CodeVerification } from './codeVerification'
-import { ImageVerification } from './imageVerification'
-import { PhoneNumber } from './phoneNumber'
-import { Submit } from './submit'
-import * as authApi from '../../apis/auth'
-import { EventsHub } from './eventsHub'
-import { cloneDeep } from 'lodash-es'
-
+import React, { Component } from "react"
+import { Agreement } from "./agreement"
+import { CodeVerification } from "./codeVerification"
+import { ImageVerification } from "./imageVerification"
+import { PhoneNumber } from "./phoneNumber"
+import { Submit } from "./submit"
+import * as authApi from "../../apis/auth"
+import { EventsHub } from "./eventsHub"
+import { cloneDeep } from "lodash-es"
+import "./index.scss"
 const SMSVControls = [
   Agreement,
   CodeVerification,
   ImageVerification,
-  PhoneNumber,
+  PhoneNumber
 ]
 
 type Props = {
@@ -53,17 +53,17 @@ class Container extends Component<Props, State> {
 
   onFetchCode = () => {
     authApi.fetchCode(this.props.fetchCodeApi, {
-      mobile: '', //this.state.phoneNumber,
-      scope: this.props.scope,
+      mobile: "", //this.state.phoneNumber,
+      scope: this.props.scope
     })
   }
 
   onVerifyCode = () => {
     authApi
       .verifyCode(this.props.verifyCodeApi, {
-        mobile: '', //this.state.phoneNumber,
+        mobile: "", //this.state.phoneNumber,
         scope: this.props.scope,
-        code: '', //this.state.code,
+        code: "" //this.state.code,
       })
       .then(res => {
         this.props.callbackToken(res.data.token)
@@ -83,7 +83,7 @@ class Container extends Component<Props, State> {
   }
 
   render() {
-    return <div>{this.children}</div>
+    return <div className="daming-ui-container">{this.children}</div>
   }
 }
 
@@ -93,5 +93,5 @@ export default {
   CodeVerification,
   ImageVerification,
   PhoneNumber,
-  Submit,
+  Submit
 }
