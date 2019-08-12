@@ -38,23 +38,17 @@ export class PhoneNumber extends Component<Props, State> {
   }
   onPhoneNumberChange = event => {
     const { maxLength } = this.props
-    if (event.target.value.length > maxLength) {
-      event.target.value = event.target.value.slice(0, maxLength)
+    let phoneNumber = event.target.value
+    if (phoneNumber.length > maxLength) {
+      phoneNumber = phoneNumber.slice(0, maxLength)
     }
-    this.setState({ phoneNumber: event.target.value })
-    if (event.target.value) {
-      this.eventsHub.changeSMSVStatus(true, this.componentKey)
-    } else {
-      this.eventsHub.changeSMSVStatus(false, this.componentKey)
-    }
+    this.setState({ phoneNumber })
+    this.eventsHub.changeSMSVStatus(!!phoneNumber, this.componentKey)
   }
-  onBlur(event) {
+  onBlur = event => {
     const { phoneNumber } = this.state
     const { validation } = this.props
-    let inputPhoneNumberErrorStatus = true
-    if (validation) {
-      inputPhoneNumberErrorStatus = validation(phoneNumber)
-    }
+    const inputPhoneNumberErrorStatus = validation(phoneNumber)
     this.setState({ inputPhoneNumberErrorStatus })
   }
   render() {
@@ -70,9 +64,7 @@ export class PhoneNumber extends Component<Props, State> {
           prefix={prefix}
           suffix={suffix}
           onChange={this.onPhoneNumberChange}
-          onBlur={e => {
-            this.onBlur(e)
-          }}
+          onBlur={this.onBlur}
           className={
             inputPhoneNumberErrorStatus ? "smsv-phone-number-error-input" : ""
           }
