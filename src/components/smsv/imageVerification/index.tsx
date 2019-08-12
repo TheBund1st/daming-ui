@@ -1,7 +1,7 @@
-import React from "react"
-import { Component } from "../baseComponent"
-import { Input, Icon } from "antd"
-import "./index.scss"
+import React from 'react'
+import { Component } from '../baseComponent'
+import { Input, Icon } from 'antd'
+import './index.scss'
 type Props = {
   codeLength: number
 }
@@ -16,15 +16,15 @@ type State = {
 
 export class ImageVerification extends Component<Props, State> {
   state: State = {
-    verificationCode: "",
-    drawImageText: "",
-    errorTips: "验证码错误",
+    verificationCode: '',
+    drawImageText: '',
+    errorTips: '验证码错误',
     inputImageNumberErrorStatus: false,
-    imageVerificationResult: false
+    imageVerificationResult: false,
   }
 
   static defaultProps = {
-    codeLength: 4
+    codeLength: 4,
   }
   componentDidMount() {
     this.drawVerificationCode()
@@ -37,12 +37,12 @@ export class ImageVerification extends Component<Props, State> {
     const { verificationCode, drawImageText } = this.state
     if (verificationCode.toLowerCase() === drawImageText.toLowerCase()) {
       this.setState({
-        inputImageNumberErrorStatus: false
+        inputImageNumberErrorStatus: false,
       })
       return
     }
     this.setState({
-      inputImageNumberErrorStatus: true
+      inputImageNumberErrorStatus: true,
     })
   }
   onVerificationCodeChange = event => {
@@ -63,28 +63,28 @@ export class ImageVerification extends Component<Props, State> {
     }
     let w = 100
     let h = 25
-    let ctx = this.canvasRef.getContext("2d")
+    let ctx = this.canvasRef.getContext('2d')
     ctx.fillStyle = getRandomColor(180, 230)
     ctx.fillRect(0, 0, w, h)
-    let pool = "ABCDEFGHJKLMNPQRSTUVWXYZabcdefhijkmnpqrstuvwxyz234568"
+    let pool = 'ABCDEFGHJKLMNPQRSTUVWXYZabcdefhijkmnpqrstuvwxyz234568'
     let drawText = [],
-      drawImageText = ""
+      drawImageText = ''
     for (let i = 0; i < codeLength; i++) {
       let randomText = pool[getRandomNumber(0, pool.length)]
       drawText.push(randomText)
       drawImageText += randomText.toLowerCase()
     }
     this.setState({ drawImageText }, () => {
-      if (verificationCode !== "") {
+      if (verificationCode !== '') {
         this.onBlur()
       }
     })
     for (let i = 0; i < 4; i++) {
       let fs = getRandomNumber(18, 24)
       let deg = getRandomNumber(-30, 30)
-      ctx.font = fs + "px Simhei"
+      ctx.font = fs + 'px Simhei'
       ctx.fontWeight = 600
-      ctx.textBaseline = "top"
+      ctx.textBaseline = 'top'
       ctx.fillStyle = getRandomColor(80, 150)
       ctx.save()
       ctx.translate((100 / codeLength) * i + 15, 15)
@@ -112,7 +112,7 @@ export class ImageVerification extends Component<Props, State> {
     const {
       verificationCode,
       inputImageNumberErrorStatus,
-      errorTips
+      errorTips,
     } = this.state
     const { codeLength } = this.props
     return (
@@ -144,7 +144,7 @@ export class ImageVerification extends Component<Props, State> {
             this.onBlur()
           }}
           className={
-            inputImageNumberErrorStatus ? "smsv-image-number-error-input" : ""
+            inputImageNumberErrorStatus ? 'smsv-image-number-error-input' : ''
           }
         />
         {inputImageNumberErrorStatus && (

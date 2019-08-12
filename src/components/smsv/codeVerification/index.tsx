@@ -1,7 +1,7 @@
-import React from "react"
-import { Component } from "../baseComponent"
-import { Input, Button } from "antd"
-import "./index.scss"
+import React from 'react'
+import { Component } from '../baseComponent'
+import { Input, Button } from 'antd'
+import './index.scss'
 type Props = {}
 type State = {
   codeVerification: string
@@ -11,21 +11,21 @@ type State = {
 
 export class CodeVerification extends Component<Props, State> {
   state: State = {
-    codeVerification: "",
-    placeHolder: "输入验证码",
-    codeVerificationBtnText: "获取验证码"
+    codeVerification: '',
+    placeHolder: '输入验证码',
+    codeVerificationBtnText: '获取验证码',
   }
   onCodeVerificationChange = event => {
     this.setState({ codeVerification: event.target.value })
   }
   onBlur = () => {
-    console.log("onblur")
+    console.log('onblur')
   }
   render() {
     const {
       codeVerification,
       placeHolder,
-      codeVerificationBtnText
+      codeVerificationBtnText,
     } = this.state
     return (
       <div className="smsv-code-verification-container">

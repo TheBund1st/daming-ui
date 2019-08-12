@@ -1,9 +1,9 @@
-import React, { Component } from "react"
-import smsv from "../components/smsv"
-import "./App.scss"
+import React, { Component } from 'react'
+import smsv from '../components/smsv'
+import './App.scss'
 class App extends Component {
   onTokenBack = (token: string) => {
-    console.log("token", token)
+    console.log('token', token)
   }
   render() {
     return (

@@ -1,7 +1,7 @@
-import React, { ReactNode } from "react"
-import { Component } from "../baseComponent"
-import { Input, Icon } from "antd"
-import "./index.scss"
+import React, { ReactNode } from 'react'
+import { Component } from '../baseComponent'
+import { Input, Icon } from 'antd'
+import './index.scss'
 type Props = {
   placeHolder: string
   maxLength: number
@@ -18,14 +18,14 @@ type State = {
 
 export class PhoneNumber extends Component<Props, State> {
   state: State = {
-    phoneNumber: "",
-    inputPhoneNumberErrorStatus: false
+    phoneNumber: '',
+    inputPhoneNumberErrorStatus: false,
   }
 
   static defaultProps = {
-    placeHolder: "请输入手机号码",
+    placeHolder: '请输入手机号码',
     maxLength: 20,
-    errorTips: "手机号码格式有误",
+    errorTips: '手机号码格式有误',
     prefix: <Icon type="mobile" />,
     suffix: <span>请填写接受验证码的手机号码</span>,
     validation: phoneNum => {
@@ -34,7 +34,7 @@ export class PhoneNumber extends Component<Props, State> {
         status = true
       }
       return status
-    }
+    },
   }
   onPhoneNumberChange = event => {
     const { maxLength } = this.props
@@ -74,7 +74,7 @@ export class PhoneNumber extends Component<Props, State> {
             this.onBlur(e)
           }}
           className={
-            inputPhoneNumberErrorStatus ? "smsv-phone-number-error-input" : ""
+            inputPhoneNumberErrorStatus ? 'smsv-phone-number-error-input' : ''
           }
         />
         {inputPhoneNumberErrorStatus && (
