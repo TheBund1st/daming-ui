@@ -28,4 +28,11 @@ export class EventsHub {
   registerImageVerificationChange(onChange) {
     this.events.onImageVerificationChange = onChange
   }
+  registerSendCodeStatusChange(onChange) {
+    this.events.onSendCodeStatusChange = onChange
+  }
+  ChangeSendCodeStatusChange(statusQueue: object) {
+    this.events.onSendCodeStatusChange &&
+      this.events.onSendCodeStatusChange(statusQueue)
+  }
 }

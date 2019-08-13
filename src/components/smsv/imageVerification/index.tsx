@@ -69,17 +69,16 @@ export class ImageVerification extends Component<Props, State> {
   onVerificationCodeChange = event => {
     const verificationCode = event.target.value
     let { drawImageText, inputImageNumberErrorStatus } = this.state
+    let sendCodeStatus = false
     if (verificationCode.length === drawImageText.length) {
       if (verificationCode.toLowerCase() === drawImageText.toLowerCase()) {
         inputImageNumberErrorStatus = false
+        sendCodeStatus = true
       } else {
         inputImageNumberErrorStatus = true
       }
     }
-    this.eventsHub.changeImageVerification(
-      !inputImageNumberErrorStatus,
-      this.componentKey
-    )
+    this.eventsHub.changeImageVerification(sendCodeStatus, this.componentKey)
     this.setState({
       verificationCode,
       inputImageNumberErrorStatus,

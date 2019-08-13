@@ -84,12 +84,14 @@ class Container extends Component<Props, State> {
   }
 
   onPhoneNumberChange = (phoneNumber: string) => {
+    this.eventsHub.ChangeSendCodeStatusChange(this.smsvControlStatusCache)
     this.setState({ phoneNumber })
   }
 
   onImageVerificationChange = (enable: boolean, componentKey: string) => {
     this.smsvControlStatusCache[componentKey] = enable
     this.updateSubmitStatus()
+    this.eventsHub.ChangeSendCodeStatusChange(this.smsvControlStatusCache)
   }
 
   updateSubmitStatus = () => {

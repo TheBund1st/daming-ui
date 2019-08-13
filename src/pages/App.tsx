@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import smsv from '../components/smsv'
 import './App.scss'
+import { Icon } from 'antd'
 class App extends Component {
   onTokenBack = (token: string) => {
     console.log('token', token)
@@ -15,7 +16,22 @@ class App extends Component {
             scope="ABC"
             callbackToken={this.onTokenBack}
           >
-            <smsv.PhoneNumber />
+            <smsv.PhoneNumber
+              placeHolder="请输入尚未注册过的手机号码"
+              maxLength={12}
+              prefix={<Icon type="mobile" />}
+              suffix={<span>* 需要尚未注册过的号码哟</span>}
+              errorTips="手机号码格式有误"
+              validation={(phoneNum: string) => {
+                console.log(phoneNum)
+
+                let status = false
+                if (!/^1(3|4|5|6|7|8|9)\d{9}$/.test(phoneNum)) {
+                  status = true
+                }
+                return status
+              }}
+            />
             <smsv.ImageVerification />
             <smsv.CodeVerification />
             <smsv.Agreement

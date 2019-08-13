@@ -13,12 +13,24 @@ type State = {
 export class CodeVerification extends Component<Props, State> {
   constructor(props: Props) {
     super(props)
+    this.eventsHub.registerSendCodeStatusChange(this.sendCodeStatus)
   }
   state: State = {
-    isBtnEnable: false,
+    isBtnEnable: true,
     codeVerification: '',
     placeHolder: '输入验证码',
     codeVerificationBtnText: '获取验证码',
+  }
+  sendCodeStatus = (statusQueue: object) => {
+    let statusKeeper = true
+    for (let key in statusQueue) {
+      if (key < this.componentKey) {
+        statusKeeper = statusKeeper && statusQueue[key]
+      }
+    }
+    this.setState({
+      isBtnEnable: !statusKeeper,
+    })
   }
   onCodeVerificationChange = event => {
     this.setState({ codeVerification: event.target.value })
