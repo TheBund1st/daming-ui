@@ -23,8 +23,6 @@ class App extends Component {
               suffix={<span>* 需要尚未注册过的号码哟</span>}
               errorTips="手机号码格式有误"
               validation={(phoneNum: string) => {
-                console.log(phoneNum)
-
                 let status = false
                 if (!/^1(3|4|5|6|7|8|9)\d{9}$/.test(phoneNum)) {
                   status = true
@@ -33,7 +31,7 @@ class App extends Component {
               }}
             />
             <smsv.ImageVerification />
-            <smsv.CodeVerification />
+            <smsv.CodeVerification limitClickInterval={20} />
             <smsv.Agreement
               preText="登录或注册帐号即代表您同意本公司的"
               agreements={[

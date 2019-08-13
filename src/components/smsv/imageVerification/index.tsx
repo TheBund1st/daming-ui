@@ -34,8 +34,19 @@ export class ImageVerification extends Component<Props, State> {
   getCanvasRef = ref => {
     this.canvasRef = ref
   }
+  refreshImage = () => {
+    let { verificationCode } = this.state
+    let inputImageNumberErrorStatus = false
+    if (verificationCode === '') {
+      inputImageNumberErrorStatus = true
+    }
+    this.setState({
+      inputImageNumberErrorStatus,
+    })
+    this.drawVerificationCode()
+  }
   drawVerificationCode = () => {
-    this.eventsHub.changeImageVerification(false, this.componentKey)
+    this.eventsHub.changeSMSVSendCodeStatus(false, this.componentKey)
     const verificationCodeRender = new VerificationCodeRender({
       targetCanvas: this.canvasRef,
       codeLen: this.props.codeLength,
@@ -58,7 +69,7 @@ export class ImageVerification extends Component<Props, State> {
     } else {
       inputImageNumberErrorStatus = true
     }
-    this.eventsHub.changeImageVerification(
+    this.eventsHub.changeSMSVSendCodeStatus(
       !inputImageNumberErrorStatus,
       this.componentKey
     )
@@ -70,15 +81,16 @@ export class ImageVerification extends Component<Props, State> {
     const verificationCode = event.target.value
     let { drawImageText, inputImageNumberErrorStatus } = this.state
     let sendCodeStatus = false
-    if (verificationCode.length === drawImageText.length) {
-      if (verificationCode.toLowerCase() === drawImageText.toLowerCase()) {
-        inputImageNumberErrorStatus = false
-        sendCodeStatus = true
-      } else {
-        inputImageNumberErrorStatus = true
-      }
+    if (
+      verificationCode.length === drawImageText.length &&
+      verificationCode.toLowerCase() === drawImageText.toLowerCase()
+    ) {
+      inputImageNumberErrorStatus = false
+      sendCodeStatus = true
+    } else if (verificationCode.length < drawImageText.length) {
+      inputImageNumberErrorStatus = false
     }
-    this.eventsHub.changeImageVerification(sendCodeStatus, this.componentKey)
+    this.eventsHub.changeSMSVSendCodeStatus(sendCodeStatus, this.componentKey)
     this.setState({
       verificationCode,
       inputImageNumberErrorStatus,
@@ -120,9 +132,7 @@ export class ImageVerification extends Component<Props, State> {
             />
             <div
               className="smsv-image-verification-refresh"
-              onClick={() => {
-                this.drawVerificationCode()
-              }}
+              onClick={this.refreshImage}
             >
               <Icon type="sync" />
             </div>

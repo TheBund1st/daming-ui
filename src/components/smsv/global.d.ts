@@ -1,8 +1,11 @@
 type Events = {
   phoneNumber: string
+  code: string
   onSubmitStatusChange: (enable: boolean) => void
   onSMSVStatusChange: (enable: boolean, component: string) => void
+  onSMSVSendCodeStatusChange: (enable: boolean, component: string) => void
   onPhoneNumberChange: (phoneNumber: string) => void
-  onImageVerificationChange: (enable: boolean, componentKey: string) => void
   onSendCodeStatusChange: (statusQueue: object) => void
+  fetchSMSVCode: () => void
+  onRequestSMSVControlStatusCache: () => object
 }

@@ -45,7 +45,7 @@ export class PhoneNumber extends Component<Props, State> {
     const { validation } = this.props
     const inputPhoneNumberErrorStatus = validation(phoneNumber)
     this.setState({ phoneNumber })
-    this.eventsHub.changeSMSVStatus(
+    this.eventsHub.changeSMSVSendCodeStatus(
       !inputPhoneNumberErrorStatus,
       this.componentKey
     )

@@ -34,9 +34,12 @@ class Container extends Component<Props, State> {
   constructor(props: Props) {
     super(props)
     this.eventsHub.registerSMSVStatusChange(this.onSMSVStatusChange)
-    this.eventsHub.registerSMSVPhoneNumberChange(this.onPhoneNumberChange)
-    this.eventsHub.registerImageVerificationChange(
-      this.onImageVerificationChange
+    this.eventsHub.registerSMSVSendCodeStatusChange(
+      this.onSMSVSendCodeStatusChange
+    )
+    this.eventsHub.registerSMSVFetchCode(this.onFetchCode)
+    this.eventsHub.requestSMSVControlStatusCache(
+      this.onRequestSMSVControlStatusCache
     )
     this.generateChildren()
   }
@@ -58,12 +61,16 @@ class Container extends Component<Props, State> {
       this.children.push(cloned)
     })
   }
-
+  onRequestSMSVControlStatusCache = () => {
+    return this.smsvControlStatusCache
+  }
   onFetchCode = () => {
-    authApi.fetchCode(this.props.fetchCodeApi, {
-      mobile: '', //this.state.phoneNumber,
-      scope: this.props.scope,
-    })
+    console.log('onFetchCode')
+
+    // authApi.fetchCode(this.props.fetchCodeApi, {
+    //   mobile: '', //this.state.phoneNumber,
+    //   scope: this.props.scope,
+    // })
   }
 
   onVerifyCode = () => {
@@ -77,28 +84,20 @@ class Container extends Component<Props, State> {
         this.props.callbackToken(res.data.token)
       })
   }
-
+  onSMSVSendCodeStatusChange = (enable: boolean, componentKey: string) => {
+    this.smsvControlStatusCache[componentKey] = enable
+    this.eventsHub.ChangeSendCodeStatusChange(this.smsvControlStatusCache)
+  }
   onSMSVStatusChange = (enable: boolean, componentKey: string) => {
     this.smsvControlStatusCache[componentKey] = enable
     this.updateSubmitStatus()
-  }
-
-  onPhoneNumberChange = (phoneNumber: string) => {
-    this.eventsHub.ChangeSendCodeStatusChange(this.smsvControlStatusCache)
-    this.setState({ phoneNumber })
-  }
-
-  onImageVerificationChange = (enable: boolean, componentKey: string) => {
-    this.smsvControlStatusCache[componentKey] = enable
-    this.updateSubmitStatus()
-    this.eventsHub.ChangeSendCodeStatusChange(this.smsvControlStatusCache)
   }
 
   updateSubmitStatus = () => {
     const isSubmitDisable = Object.values(this.smsvControlStatusCache).includes(
       false
     )
-    this.eventsHub.changeSubmitStatus(!isSubmitDisable)
+    this.eventsHub.changeSubmitStatus(isSubmitDisable)
   }
   render() {
     return <div className="daming-ui-container">{this.children}</div>

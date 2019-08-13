@@ -1,32 +1,30 @@
 export class EventsHub {
   events: Events = {} as any
-
   registerSubmitStatusChange(onChange) {
     this.events.onSubmitStatusChange = onChange
   }
-  registerSMSVStatusChange(onChange) {
-    this.events.onSMSVStatusChange = onChange
-  }
   changeSubmitStatus(enable: boolean) {
     this.events.onSubmitStatusChange && this.events.onSubmitStatusChange(enable)
+  }
+  registerSMSVStatusChange(onChange) {
+    this.events.onSMSVStatusChange = onChange
   }
   changeSMSVStatus(enable: boolean, componentKey: string) {
     this.events.onSMSVStatusChange &&
       this.events.onSMSVStatusChange(enable, componentKey)
   }
+  registerSMSVSendCodeStatusChange(onChange) {
+    this.events.onSMSVSendCodeStatusChange = onChange
+  }
+  changeSMSVSendCodeStatus(enable: boolean, componentKey: string) {
+    this.events.onSMSVSendCodeStatusChange &&
+      this.events.onSMSVSendCodeStatusChange(enable, componentKey)
+  }
   changePhoneNumber(phoneNumber: string) {
-    this.events.onPhoneNumberChange &&
-      this.events.onPhoneNumberChange(phoneNumber)
+    this.events.phoneNumber = phoneNumber
   }
-  registerSMSVPhoneNumberChange(onChange) {
-    this.events.onPhoneNumberChange = onChange
-  }
-  changeImageVerification(enable: boolean, componentKey: string) {
-    this.events.onImageVerificationChange &&
-      this.events.onImageVerificationChange(enable, componentKey)
-  }
-  registerImageVerificationChange(onChange) {
-    this.events.onImageVerificationChange = onChange
+  changeCode(code: string) {
+    this.events.code = code
   }
   registerSendCodeStatusChange(onChange) {
     this.events.onSendCodeStatusChange = onChange
@@ -34,5 +32,20 @@ export class EventsHub {
   ChangeSendCodeStatusChange(statusQueue: object) {
     this.events.onSendCodeStatusChange &&
       this.events.onSendCodeStatusChange(statusQueue)
+  }
+  registerSMSVFetchCode(onChange) {
+    this.events.fetchSMSVCode = onChange
+  }
+  fetchSMSVCode() {
+    this.events.fetchSMSVCode && this.events.fetchSMSVCode()
+  }
+  requestSMSVControlStatusCache(onRequest) {
+    this.events.onRequestSMSVControlStatusCache = onRequest
+  }
+  sendSMSVControlStatusCache() {
+    return (
+      this.events.onRequestSMSVControlStatusCache &&
+      this.events.onRequestSMSVControlStatusCache()
+    )
   }
 }

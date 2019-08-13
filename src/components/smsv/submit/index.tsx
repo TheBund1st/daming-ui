@@ -14,7 +14,7 @@ export class Submit extends Component<Props, State> {
   constructor(props: Props) {
     super(props)
     this.state = {
-      isBtnEnable: false,
+      isBtnEnable: true,
     }
     this.eventsHub.registerSubmitStatusChange(this.setSubmitStatus)
   }
