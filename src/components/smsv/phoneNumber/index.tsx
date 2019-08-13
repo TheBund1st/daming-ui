@@ -3,12 +3,12 @@ import { Component } from '../baseComponent'
 import { Input, Icon } from 'antd'
 import './index.scss'
 type Props = {
-  placeHolder: string
-  maxLength: number
-  prefix: ReactNode
-  suffix: ReactNode
-  errorTips: string
-  validation: (phoneNum: string) => boolean
+  placeHolder?: string
+  maxLength?: number
+  prefix?: ReactNode
+  suffix?: ReactNode
+  errorTips?: string
+  validation?: (phoneNum: string) => boolean
 }
 
 type State = {

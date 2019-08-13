@@ -4,7 +4,7 @@ import { Input, Icon } from 'antd'
 import { VerificationCodeRender } from '../verificationCodeRender'
 import './index.scss'
 type Props = {
-  codeLength: number
+  codeLength?: number
 }
 
 type State = {
