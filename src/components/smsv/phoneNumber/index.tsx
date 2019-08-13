@@ -27,7 +27,7 @@ export class PhoneNumber extends Component<Props, State> {
     maxLength: 20,
     errorTips: '手机号码格式有误',
     prefix: <Icon type="mobile" />,
-    suffix: <span>请填写接受验证码的手机号码</span>,
+    suffix: <span>请填写接收验证码的手机号码</span>,
     validation: phoneNum => {
       let status = false
       if (!/^1(3|4|5|6|7|8|9)\d{9}$/.test(phoneNum)) {
@@ -38,23 +38,27 @@ export class PhoneNumber extends Component<Props, State> {
   }
   onPhoneNumberChange = event => {
     const { maxLength } = this.props
-    if (event.target.value.length > maxLength) {
-      event.target.value = event.target.value.slice(0, maxLength)
+    let phoneNumber = event.target.value
+    if (phoneNumber.length > maxLength) {
+      phoneNumber = phoneNumber.slice(0, maxLength)
     }
-    this.setState({ phoneNumber: event.target.value })
-    if (event.target.value) {
-      this.eventsHub.changeSMSVStatus(true, this.componentKey)
+    const { validation } = this.props
+    const inputPhoneNumberErrorStatus = validation(phoneNumber)
+    this.setState({ phoneNumber })
+    this.eventsHub.changeSMSVStatus(
+      !inputPhoneNumberErrorStatus,
+      this.componentKey
+    )
+    if (!inputPhoneNumberErrorStatus) {
+      this.eventsHub.changePhoneNumber(phoneNumber)
     } else {
-      this.eventsHub.changeSMSVStatus(false, this.componentKey)
+      this.eventsHub.changePhoneNumber('')
     }
   }
-  onBlur(event) {
+  onBlur = event => {
     const { phoneNumber } = this.state
     const { validation } = this.props
-    let inputPhoneNumberErrorStatus = true
-    if (validation) {
-      inputPhoneNumberErrorStatus = validation(phoneNumber)
-    }
+    const inputPhoneNumberErrorStatus = validation(phoneNumber)
     this.setState({ inputPhoneNumberErrorStatus })
   }
   render() {
@@ -70,9 +74,7 @@ export class PhoneNumber extends Component<Props, State> {
           prefix={prefix}
           suffix={suffix}
           onChange={this.onPhoneNumberChange}
-          onBlur={e => {
-            this.onBlur(e)
-          }}
+          onBlur={this.onBlur}
           className={
             inputPhoneNumberErrorStatus ? 'smsv-phone-number-error-input' : ''
           }

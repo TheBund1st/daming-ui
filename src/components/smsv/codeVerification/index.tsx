@@ -7,10 +7,15 @@ type State = {
   codeVerification: string
   placeHolder: string
   codeVerificationBtnText: string
+  isBtnEnable: boolean
 }
 
 export class CodeVerification extends Component<Props, State> {
+  constructor(props: Props) {
+    super(props)
+  }
   state: State = {
+    isBtnEnable: false,
     codeVerification: '',
     placeHolder: '输入验证码',
     codeVerificationBtnText: '获取验证码',
@@ -26,6 +31,7 @@ export class CodeVerification extends Component<Props, State> {
       codeVerification,
       placeHolder,
       codeVerificationBtnText,
+      isBtnEnable,
     } = this.state
     return (
       <div className="smsv-code-verification-container">
@@ -34,7 +40,7 @@ export class CodeVerification extends Component<Props, State> {
           placeholder={placeHolder}
           onChange={this.onCodeVerificationChange}
         />
-        <Button type="primary" disabled={true}>
+        <Button type="primary" disabled={isBtnEnable}>
           {codeVerificationBtnText}
         </Button>
       </div>

@@ -14,4 +14,18 @@ export class EventsHub {
     this.events.onSMSVStatusChange &&
       this.events.onSMSVStatusChange(enable, componentKey)
   }
+  changePhoneNumber(phoneNumber: string) {
+    this.events.onPhoneNumberChange &&
+      this.events.onPhoneNumberChange(phoneNumber)
+  }
+  registerSMSVPhoneNumberChange(onChange) {
+    this.events.onPhoneNumberChange = onChange
+  }
+  changeImageVerification(enable: boolean, componentKey: string) {
+    this.events.onImageVerificationChange &&
+      this.events.onImageVerificationChange(enable, componentKey)
+  }
+  registerImageVerificationChange(onChange) {
+    this.events.onImageVerificationChange = onChange
+  }
 }

@@ -22,19 +22,27 @@ type Props = {
   callbackToken: (token: string) => void
 }
 
-type State = {}
+type State = {
+  phoneNumber: string
+}
 
 class Container extends Component<Props, State> {
   eventsHub = new EventsHub()
   smsvControlStatusCache = {}
   children: any[] = []
-
+  phoneNumber = ''
   constructor(props: Props) {
     super(props)
     this.eventsHub.registerSMSVStatusChange(this.onSMSVStatusChange)
+    this.eventsHub.registerSMSVPhoneNumberChange(this.onPhoneNumberChange)
+    this.eventsHub.registerImageVerificationChange(
+      this.onImageVerificationChange
+    )
     this.generateChildren()
   }
-
+  state: State = {
+    phoneNumber: '',
+  }
   generateChildren = () => {
     ;(this.props.children as any).forEach((child, index) => {
       const cloned = cloneDeep(child)
@@ -75,13 +83,21 @@ class Container extends Component<Props, State> {
     this.updateSubmitStatus()
   }
 
+  onPhoneNumberChange = (phoneNumber: string) => {
+    this.setState({ phoneNumber })
+  }
+
+  onImageVerificationChange = (enable: boolean, componentKey: string) => {
+    this.smsvControlStatusCache[componentKey] = enable
+    this.updateSubmitStatus()
+  }
+
   updateSubmitStatus = () => {
     const isSubmitDisable = Object.values(this.smsvControlStatusCache).includes(
       false
     )
     this.eventsHub.changeSubmitStatus(!isSubmitDisable)
   }
-
   render() {
     return <div className="daming-ui-container">{this.children}</div>
   }

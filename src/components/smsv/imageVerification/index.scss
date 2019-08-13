@@ -1,22 +1,32 @@
 .smsv-image-number-container {
   width: 100%;
   height: 60px;
-  .smsv-image-vesication-action-container {
+  display: flex;
+  flex-direction: column;
+  .smsv-input-canvas-container {
+    width: 100%;
+    height: 35px;
     display: flex;
-    align-items: center;
-    .smsv-image-vesication-refresh {
-      width: 30px;
-      height: 25px;
-      line-height: 25px;
-      cursor: pointer;
-      text-align: center;
-      outline: none;
+    .smsv-input-container {
+      width: 350px;
+      line-height: 35px;
     }
-  }
-  .smsv-image-number-error-input {
-    input {
-      background-color: #fff;
-      border-color: #f5222d;
+    .smsv-image-verification-action-container {
+      width: 150px;
+      display: flex;
+      align-items: center;
+      #smsv-image-verification-canvas {
+        margin: 0 5px;
+      }
+
+      .smsv-image-verification-refresh {
+        width: 40px;
+        cursor: pointer;
+        display: flex;
+        height: 32px;
+        align-items: center;
+        justify-content: center;
+      }
     }
   }
   .smsv-image-number-error-tips {

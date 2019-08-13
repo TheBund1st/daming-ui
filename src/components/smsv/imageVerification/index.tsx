@@ -1,6 +1,7 @@
 import React from 'react'
 import { Component } from '../baseComponent'
 import { Input, Icon } from 'antd'
+import { VerificationCodeRender } from '../verificationCodeRender'
 import './index.scss'
 type Props = {
   codeLength: number
@@ -33,80 +34,56 @@ export class ImageVerification extends Component<Props, State> {
   getCanvasRef = ref => {
     this.canvasRef = ref
   }
-  onBlur() {
-    const { verificationCode, drawImageText } = this.state
-    if (verificationCode.toLowerCase() === drawImageText.toLowerCase()) {
-      this.setState({
-        inputImageNumberErrorStatus: false,
-      })
-      return
-    }
+  drawVerificationCode = () => {
+    this.eventsHub.changeImageVerification(false, this.componentKey)
+    const verificationCodeRender = new VerificationCodeRender({
+      targetCanvas: this.canvasRef,
+      codeLen: this.props.codeLength,
+      width: 100,
+      height: 30,
+    })
+    let drawImageText = verificationCodeRender.drawVerificationCode()
     this.setState({
-      inputImageNumberErrorStatus: true,
+      drawImageText,
+    })
+  }
+  onBlur() {
+    let {
+      verificationCode,
+      drawImageText,
+      inputImageNumberErrorStatus,
+    } = this.state
+    if (verificationCode.toLowerCase() === drawImageText.toLowerCase()) {
+      inputImageNumberErrorStatus = false
+    } else {
+      inputImageNumberErrorStatus = true
+    }
+    this.eventsHub.changeImageVerification(
+      !inputImageNumberErrorStatus,
+      this.componentKey
+    )
+    this.setState({
+      inputImageNumberErrorStatus,
     })
   }
   onVerificationCodeChange = event => {
-    this.setState({ verificationCode: event.target.value })
-  }
-
-  drawVerificationCode() {
-    const { codeLength } = this.props
-    const { verificationCode } = this.state
-    function getRandomNumber(min, max) {
-      return parseInt(Math.random() * (max - min) + min)
-    }
-    function getRandomColor(min, max) {
-      let r = getRandomNumber(min, max)
-      let g = getRandomNumber(min, max)
-      let b = getRandomNumber(min, max)
-      return `rgb(${r},${g},${b})`
-    }
-    let w = 100
-    let h = 25
-    let ctx = this.canvasRef.getContext('2d')
-    ctx.fillStyle = getRandomColor(180, 230)
-    ctx.fillRect(0, 0, w, h)
-    let pool = 'ABCDEFGHJKLMNPQRSTUVWXYZabcdefhijkmnpqrstuvwxyz234568'
-    let drawText = [],
-      drawImageText = ''
-    for (let i = 0; i < codeLength; i++) {
-      let randomText = pool[getRandomNumber(0, pool.length)]
-      drawText.push(randomText)
-      drawImageText += randomText.toLowerCase()
-    }
-    this.setState({ drawImageText }, () => {
-      if (verificationCode !== '') {
-        this.onBlur()
+    const verificationCode = event.target.value
+    let { drawImageText, inputImageNumberErrorStatus } = this.state
+    if (verificationCode.length === drawImageText.length) {
+      if (verificationCode.toLowerCase() === drawImageText.toLowerCase()) {
+        inputImageNumberErrorStatus = false
+      } else {
+        inputImageNumberErrorStatus = true
       }
+    }
+    this.eventsHub.changeImageVerification(
+      !inputImageNumberErrorStatus,
+      this.componentKey
+    )
+    this.setState({
+      verificationCode,
+      inputImageNumberErrorStatus,
     })
-    for (let i = 0; i < 4; i++) {
-      let fs = getRandomNumber(18, 24)
-      let deg = getRandomNumber(-30, 30)
-      ctx.font = fs + 'px Simhei'
-      ctx.fontWeight = 600
-      ctx.textBaseline = 'top'
-      ctx.fillStyle = getRandomColor(80, 150)
-      ctx.save()
-      ctx.translate((100 / codeLength) * i + 15, 15)
-      ctx.rotate((deg * Math.PI) / 180)
-      ctx.fillText(drawText[i], -10, -15)
-      ctx.restore()
-    }
-    for (let i = 0; i < 5; i++) {
-      ctx.beginPath()
-      ctx.moveTo(getRandomNumber(0, w), getRandomNumber(0, h))
-      ctx.lineTo(getRandomNumber(0, w), getRandomNumber(0, h))
-      ctx.strokeStyle = getRandomColor(180, 230)
-      ctx.closePath()
-      ctx.stroke()
-    }
-    for (let i = 0; i < 40; i++) {
-      ctx.beginPath()
-      ctx.arc(getRandomNumber(0, w), getRandomNumber(0, h), 1, 0, 2 * Math.PI)
-      ctx.closePath()
-      ctx.fillStyle = getRandomColor(150, 200)
-      ctx.fill()
-    }
   }
   render() {
     const {
@@ -117,36 +94,41 @@ export class ImageVerification extends Component<Props, State> {
     const { codeLength } = this.props
     return (
       <div className="smsv-image-number-container">
-        <Input
-          maxLength={codeLength}
-          value={verificationCode}
-          placeholder="请输入验证码"
-          prefix={<Icon type="robot" />}
-          suffix={
-            <div className="smsv-image-vesication-action-container">
-              <canvas
-                id="smsv-image-vesication-canvas"
-                width="100px"
-                height="25px"
-                ref={this.getCanvasRef}
-              />
-              <Icon
-                type="sync"
-                className="smsv-image-vesication-refresh"
-                onClick={() => {
-                  this.drawVerificationCode()
-                }}
-              />
+        <div className="smsv-input-canvas-container">
+          <div className="smsv-input-container">
+            <Input
+              maxLength={codeLength}
+              value={verificationCode}
+              placeholder="请输入验证码"
+              prefix={<Icon type="robot" />}
+              onChange={this.onVerificationCodeChange}
+              onBlur={() => {
+                this.onBlur()
+              }}
+              className={
+                inputImageNumberErrorStatus
+                  ? 'smsv-image-number-error-input'
+                  : ''
+              }
+            />
+          </div>
+          <div className="smsv-image-verification-action-container">
+            <canvas
+              id="smsv-image-verification-canvas"
+              width="100px"
+              height="30px"
+              ref={this.getCanvasRef}
+            />
+            <div
+              className="smsv-image-verification-refresh"
+              onClick={() => {
+                this.drawVerificationCode()
+              }}
+            >
+              <Icon type="sync" />
             </div>
-          }
-          onChange={this.onVerificationCodeChange}
-          onBlur={() => {
-            this.onBlur()
-          }}
-          className={
-            inputImageNumberErrorStatus ? 'smsv-image-number-error-input' : ''
-          }
-        />
+          </div>
+        </div>
         {inputImageNumberErrorStatus && (
           <div className="smsv-image-number-error-tips">{errorTips}</div>
         )}
