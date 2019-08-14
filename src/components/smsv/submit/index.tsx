@@ -23,11 +23,17 @@ export class Submit extends Component<Props, State> {
     })
   }
 
+  onClick = () => {
+    this.eventsHub.verifyCode()
+  }
+
   render() {
     let { isBtnEnable } = this.state
     return (
       <div className="smsv-submit-button-container">
-        <Button disabled={isBtnEnable}>登陆</Button>
+        <Button disabled={isBtnEnable} onClick={this.onClick}>
+          登陆
+        </Button>
       </div>
     )
   }

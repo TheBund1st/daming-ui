@@ -1,5 +1,4 @@
 import * as React from 'react'
-import { Component } from 'react'
 import { Agreement } from './agreement'
 import { CodeVerification } from './codeVerification'
 import { ImageVerification } from './imageVerification'
@@ -27,7 +26,7 @@ type State = {
   phoneNumber: string
 }
 
-class Container extends Component<Props, State> {
+class Container extends React.Component<Props, State> {
   eventsHub = new EventsHub()
   smsvControlStatusCache = {}
   children: any[] = []
@@ -39,6 +38,7 @@ class Container extends Component<Props, State> {
       this.onSMSVSendCodeStatusChange
     )
     this.eventsHub.registerSMSVFetchCode(this.onFetchCode)
+    this.eventsHub.onVerifyCode(this.onVerifyCode)
     this.eventsHub.requestSMSVControlStatusCache(
       this.onRequestSMSVControlStatusCache
     )
@@ -47,6 +47,15 @@ class Container extends Component<Props, State> {
   state: State = {
     phoneNumber: '',
   }
+
+  get smsvInfo() {
+    const { phoneNumber, code } = this.eventsHub.events
+    return {
+      code,
+      phoneNumber,
+    }
+  }
+
   generateChildren = () => {
     ;(this.props.children as any).forEach((child, index) => {
       const cloned = cloneDeep(child)
@@ -66,20 +75,18 @@ class Container extends Component<Props, State> {
     return this.smsvControlStatusCache
   }
   onFetchCode = () => {
-    console.log('onFetchCode')
-
-    // authApi.fetchCode(this.props.fetchCodeApi, {
-    //   mobile: '', //this.state.phoneNumber,
-    //   scope: this.props.scope,
-    // })
+    authApi.fetchCode(this.props.fetchCodeApi, {
+      mobile: this.smsvInfo.phoneNumber,
+      scope: this.props.scope,
+    })
   }
 
   onVerifyCode = () => {
     authApi
       .verifyCode(this.props.verifyCodeApi, {
-        mobile: '', //this.state.phoneNumber,
+        mobile: this.smsvInfo.phoneNumber,
         scope: this.props.scope,
-        code: '', //this.state.code,
+        code: this.smsvInfo.code,
       })
       .then(res => {
         this.props.callbackToken(res.data.token)

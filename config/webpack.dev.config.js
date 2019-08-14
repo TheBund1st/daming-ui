@@ -1,8 +1,6 @@
 const path = require('path')
 const webpack = require('webpack')
 const proxyWatch = require('./apiProxy/watch')
-// const ForkTsCheckerWebpackPlugin = require("fork-ts-checker-webpack-plugin")
-// const ForkTsCheckerNotifierWebpackPlugin = require("fork-ts-checker-notifier-webpack-plugin")
 const common = require('./common.config')
 const merge = require('webpack-merge')
 
@@ -58,13 +56,6 @@ module.exports = merge(common('development'), {
     },
   },
   plugins: [
-    // new ForkTsCheckerWebpackPlugin({
-    //   tsconfig: path.resolve(__dirname, "../tsconfig.json"),
-    //   tslint: path.resolve(__dirname, "../tslint.json"),
-    // }),
-    // new ForkTsCheckerNotifierWebpackPlugin({
-    //   title: "NIO Atlas typescript error",
-    // }),
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify('development'),
     }),
