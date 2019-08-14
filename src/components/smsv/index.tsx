@@ -4,11 +4,21 @@ import { CodeVerification } from './codeVerification'
 import { ImageVerification } from './imageVerification'
 import { PhoneNumber } from './phoneNumber'
 import { Submit } from './submit'
-import * as authApi from '../../apis/auth'
+import { ErrorMessage } from './errorMessage'
 import { EventsHub } from './eventsHub'
 import { cloneDeep } from 'lodash-es'
 import './index.scss'
+
 const SMSVControls = [
+  Agreement,
+  CodeVerification,
+  ImageVerification,
+  PhoneNumber,
+  Submit,
+  ErrorMessage,
+]
+
+const SMSVStateControls = [
   Agreement,
   CodeVerification,
   ImageVerification,
@@ -16,10 +26,11 @@ const SMSVControls = [
 ]
 
 type Props = {
-  fetchCodeApi: string
-  verifyCodeApi: string
-  scope: string
-  callbackToken: (token: string) => void
+  onFetchCode: (phoneNumber: string) => Promise<string>
+  onVerifyCode: (params: {
+    phoneNumber: string
+    code: string
+  }) => Promise<string>
 }
 
 type State = {
@@ -61,11 +72,11 @@ class Container extends React.Component<Props, State> {
       const cloned = cloneDeep(child)
       const componentKey = index
       cloned.key = componentKey
-      if (SMSVControls.includes(cloned.type)) {
+      if (SMSVStateControls.includes(cloned.type)) {
         cloned.props.eventsHub = this.eventsHub
         cloned.props.componentKey = componentKey
         this.smsvControlStatusCache[componentKey] = false
-      } else if (cloned.type == Submit) {
+      } else if (SMSVControls.includes(cloned.type)) {
         cloned.props.eventsHub = this.eventsHub
       }
       this.children.push(cloned)
@@ -74,23 +85,17 @@ class Container extends React.Component<Props, State> {
   onRequestSMSVControlStatusCache = () => {
     return this.smsvControlStatusCache
   }
-  onFetchCode = () => {
-    authApi.fetchCode(this.props.fetchCodeApi, {
-      mobile: this.smsvInfo.phoneNumber,
-      scope: this.props.scope,
-    })
+  onFetchCode = async () => {
+    const res = await this.props.onFetchCode(this.smsvInfo.phoneNumber)
+    this.eventsHub.setErrorMessage(res)
   }
 
-  onVerifyCode = () => {
-    authApi
-      .verifyCode(this.props.verifyCodeApi, {
-        mobile: this.smsvInfo.phoneNumber,
-        scope: this.props.scope,
-        code: this.smsvInfo.code,
-      })
-      .then(res => {
-        this.props.callbackToken(res.data.token)
-      })
+  onVerifyCode = async () => {
+    const res = await this.props.onVerifyCode({
+      phoneNumber: this.smsvInfo.phoneNumber,
+      code: this.smsvInfo.code,
+    })
+    this.eventsHub.setErrorMessage(res)
   }
   onSMSVSendCodeStatusChange = (enable: boolean, componentKey: string) => {
     this.smsvControlStatusCache[componentKey] = enable
@@ -119,4 +124,5 @@ export default {
   ImageVerification,
   PhoneNumber,
   Submit,
+  ErrorMessage,
 }

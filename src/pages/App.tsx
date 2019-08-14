@@ -2,19 +2,32 @@ import * as React from 'react'
 import smsv from '../components/smsv'
 import './App.scss'
 import { Icon } from 'antd'
+import * as authApi from '@/apis/auth'
 class App extends React.Component {
-  onTokenBack = (token: string) => {
-    console.log('token', token)
+  onFetchCode = async phoneNumber => {
+    const res = await authApi.fetchCode('api/sms/verification/code', {
+      scope: 'ABC',
+      mobile: phoneNumber,
+    })
+    return res.data.msg
   }
+
+  onVerifyCode = async params => {
+    const res = await authApi.verifyCode('api/sms/verification/code/verify', {
+      scope: 'ABC',
+      mobile: params.phoneNumber,
+      code: params.code,
+    })
+    return res.data.msg
+  }
+
   render() {
     return (
       <>
         <div className="smsv-container">
           <smsv.Container
-            fetchCodeApi="api/sms/verification/code"
-            verifyCodeApi="api/sms/verification/code"
-            scope="ABC"
-            callbackToken={this.onTokenBack}
+            onFetchCode={this.onFetchCode}
+            onVerifyCode={this.onVerifyCode}
           >
             <smsv.PhoneNumber
               placeHolder="请输入尚未注册过的手机号码"
@@ -30,7 +43,7 @@ class App extends React.Component {
                 return status
               }}
             />
-            <smsv.ImageVerification />
+            {/* <smsv.ImageVerification /> */}
             <smsv.CodeVerification limitClickInterval={20} />
             <smsv.Agreement
               preText="登录或注册帐号即代表您同意本公司的"
@@ -79,21 +92,9 @@ class App extends React.Component {
               ]}
             />
             <smsv.Submit />
+            <smsv.ErrorMessage />
           </smsv.Container>
         </div>
-        {/* <smsv.Container
-          fetchCodeApi="api/sms/verification/code"
-          verifyCodeApi="api/sms/verification/code"
-          scope="ABC"
-          callbackToken={this.onTokenBack}
-        >
-          <smsv.PhoneNumber /> */}
-        {/* <smsv.ImageVerification /> */}
-        {/* <smsv.CodeVerification /> */}
-        {/* <smsv.Agreement />
-          <smsv.Agreement />
-          <smsv.Submit />
-        </smsv.Container> */}
       </>
     )
   }
