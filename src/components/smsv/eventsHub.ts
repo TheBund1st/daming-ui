@@ -39,6 +39,12 @@ export class EventsHub {
   fetchSMSVCode() {
     this.events.fetchSMSVCode && this.events.fetchSMSVCode()
   }
+  onVerifyCode(event) {
+    this.events.verifySMSVCode = event
+  }
+  verifyCode() {
+    this.events.verifySMSVCode && this.events.verifySMSVCode()
+  }
   requestSMSVControlStatusCache(onRequest) {
     this.events.onRequestSMSVControlStatusCache = onRequest
   }

@@ -7,5 +7,6 @@ type Events = {
   onPhoneNumberChange: (phoneNumber: string) => void
   onSendCodeStatusChange: (statusQueue: object) => void
   fetchSMSVCode: () => void
+  verifySMSVCode: () => void
   onRequestSMSVControlStatusCache: () => object
 }

@@ -2,8 +2,8 @@ const yargs = require('yargs').argv
 
 const { env } = yargs
 const mockData = {
-  local: 'http://localhost:8080',
-  dev: 'https://dev-atlas.nevext.com/',
+  local: 'http://localhost:9999',
+  dev: '',
 }
 
 const defaultEnv = mockData.local
