@@ -1,6 +1,6 @@
 {
   "name": "@thebund1st/daming-ui",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "private": false,
   "dependencies": {
     "@types/react": "^16.8.24",

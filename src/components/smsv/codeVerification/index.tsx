@@ -11,7 +11,7 @@ type State = {
   codeVerificationBtnText: string
   errorTips: string
   isBtnEnable: boolean
-  inputImageNumberErrorStatus: boolean
+  inputCodeVerificationErrorStatus: boolean
   limitClickInterval: number
 }
 export class CodeVerification extends Component<Props, State> {
@@ -24,7 +24,7 @@ export class CodeVerification extends Component<Props, State> {
   }
   state: State = {
     isBtnEnable: true,
-    inputImageNumberErrorStatus: false,
+    inputCodeVerificationErrorStatus: false,
     codeVerification: '',
     placeHolder: '输入验证码',
     errorTips: '输入验证码',
@@ -32,7 +32,9 @@ export class CodeVerification extends Component<Props, State> {
     limitClickInterval: this.props.limitClickInterval,
   }
   sendCodeStatus = (statusQueue: object) => {
+    const { limitClickInterval } = this.state
     let statusKeeper = true
+    statusKeeper = limitClickInterval === this.props.limitClickInterval
     for (let key in statusQueue) {
       if (key < this.componentKey) {
         statusKeeper = statusKeeper && statusQueue[key]
@@ -80,18 +82,18 @@ export class CodeVerification extends Component<Props, State> {
     const code = event.target.value.trim()
     this.setState({
       codeVerification: code,
-      inputImageNumberErrorStatus: code === '',
+      inputCodeVerificationErrorStatus: code === '',
     })
     this.eventsHub.changeCode(code)
     this.eventsHub.changeSMSVStatus(code !== '', this.componentKey)
   }
   onBlur = () => {
     const { codeVerification } = this.state
-    let inputImageNumberErrorStatus = codeVerification === ''
+    let inputCodeVerificationErrorStatus = codeVerification === ''
     this.setState({
-      inputImageNumberErrorStatus,
+      inputCodeVerificationErrorStatus,
     })
-    if (inputImageNumberErrorStatus) {
+    if (inputCodeVerificationErrorStatus) {
       this.eventsHub.changeCode('')
     } else {
       this.eventsHub.changeCode(codeVerification)
@@ -103,7 +105,7 @@ export class CodeVerification extends Component<Props, State> {
       placeHolder,
       codeVerificationBtnText,
       isBtnEnable,
-      inputImageNumberErrorStatus,
+      inputCodeVerificationErrorStatus,
       errorTips,
     } = this.state
     return (
@@ -118,7 +120,7 @@ export class CodeVerification extends Component<Props, State> {
             {codeVerificationBtnText}
           </Button>
         </div>
-        {inputImageNumberErrorStatus && (
+        {inputCodeVerificationErrorStatus && (
           <div className="smsv-code-verification-error-tips">{errorTips}</div>
         )}
       </div>
