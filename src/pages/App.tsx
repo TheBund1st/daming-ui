@@ -1,8 +1,8 @@
-import React, { Component } from 'react'
+import * as React from 'react'
 import smsv from '../components/smsv'
 import './App.scss'
 import { Icon } from 'antd'
-class App extends Component {
+class App extends React.Component {
   onTokenBack = (token: string) => {
     console.log('token', token)
   }

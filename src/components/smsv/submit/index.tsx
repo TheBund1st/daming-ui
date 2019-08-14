@@ -1,6 +1,4 @@
-// post url
-// enable by other component
-import React from 'react'
+import * as React from 'react'
 import { Component } from '../baseComponent'
 import { Button } from 'antd'
 

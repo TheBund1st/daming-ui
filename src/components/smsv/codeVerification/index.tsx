@@ -1,4 +1,4 @@
-import React from 'react'
+import * as React from 'react'
 import { Component } from '../baseComponent'
 import { Input, Button } from 'antd'
 import './index.scss'

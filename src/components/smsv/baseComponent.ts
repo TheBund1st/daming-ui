@@ -1,4 +1,4 @@
-import React from 'react'
+import * as React from 'react'
 import { EventsHub } from './eventsHub'
 
 export class Component<Props, State> extends React.Component<

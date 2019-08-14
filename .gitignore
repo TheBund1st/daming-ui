@@ -20,3 +20,4 @@
 
 *.log
 /test/e2e/reports/*
+/dist

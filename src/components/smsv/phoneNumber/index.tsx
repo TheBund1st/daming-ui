@@ -1,4 +1,5 @@
-import React, { ReactNode } from 'react'
+import * as React from 'react'
+import { ReactNode } from 'react'
 import { Component } from '../baseComponent'
 import { Input, Icon } from 'antd'
 import './index.scss'
@@ -55,7 +56,7 @@ export class PhoneNumber extends Component<Props, State> {
       this.eventsHub.changePhoneNumber('')
     }
   }
-  onBlur = event => {
+  onBlur = () => {
     const { phoneNumber } = this.state
     const { validation } = this.props
     const inputPhoneNumberErrorStatus = validation(phoneNumber)

@@ -1,4 +1,4 @@
-import React from 'react'
+import * as React from 'react'
 import { Component } from '../baseComponent'
 import { Input, Icon } from 'antd'
 import { VerificationCodeRender } from '../verificationCodeRender'

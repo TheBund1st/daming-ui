@@ -1,4 +1,5 @@
-import React, { ReactNode } from 'react'
+import * as React from 'react'
+import { ReactNode } from 'react'
 import { Component } from '../baseComponent'
 import { Checkbox, Modal, Button } from 'antd'
 import './index.scss'
