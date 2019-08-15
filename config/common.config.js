@@ -38,7 +38,7 @@ module.exports = function(mode) {
       // chunkFilename: 'js/[name].[chunkhash:8].chunk.js',
       // library: 'MyLibrary',
       // libraryTarget: 'amd',
-      filename: 'helloMsg.min.js',
+      filename: 'index.js',
       libraryTarget: 'umd',
       umdNamedDefine: true,
     },
