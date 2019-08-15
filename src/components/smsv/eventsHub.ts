@@ -54,4 +54,11 @@ export class EventsHub {
       this.events.onRequestSMSVControlStatusCache()
     )
   }
+  onErrorMessage(event) {
+    this.events.onResponseErrorMessage = event
+  }
+  setErrorMessage(msg: string) {
+    this.events.onResponseErrorMessage &&
+      this.events.onResponseErrorMessage(msg)
+  }
 }

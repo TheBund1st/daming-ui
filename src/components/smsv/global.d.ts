@@ -9,4 +9,5 @@ type Events = {
   fetchSMSVCode: () => void
   verifySMSVCode: () => void
   onRequestSMSVControlStatusCache: () => object
+  onResponseErrorMessage: (msg: string) => void
 }
