@@ -1,6 +1,7 @@
 module.exports = {
   smsv_selector: {
     phoneInput: '.smsv-phone-number-container input',
+    phoneErrorMsg: '.smsv-phone-number-container .smsv-phone-number-error-tips',
     fetchCodeBtn: '.smsv-code-verification-container button',
     codeInput: '.smsv-code-verification-container input',
     codeErrorMsg:
