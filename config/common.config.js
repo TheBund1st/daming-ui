@@ -9,8 +9,8 @@ const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin')
 const ForkTsCheckerNotifierWebpackPlugin = require('fork-ts-checker-notifier-webpack-plugin')
 
 const miniCss = new MiniCssExtractPlugin({
-  filename: 'css/[name].[chunkhash:8].css',
-  chunkFilename: 'css/[name].[chunkhash:8].css',
+  filename: 'css/main.css',
+  chunkFilename: 'css/main.css',
 })
 
 function resolve(dir) {
@@ -32,13 +32,13 @@ module.exports = function(mode) {
       main: resolve('src/components/smsv/index.tsx'),
     },
     output: {
-      path: resolve('dist/'),
+      path: resolve('lib/'),
       publicPath: '/',
       // filename: 'js/[name].js',
       // chunkFilename: 'js/[name].[chunkhash:8].chunk.js',
       // library: 'MyLibrary',
       // libraryTarget: 'amd',
-      filename: 'index.js',
+      filename: 'js/main.js',
       libraryTarget: 'umd',
       umdNamedDefine: true,
     },
