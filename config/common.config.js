@@ -29,7 +29,7 @@ module.exports = function(mode) {
   return {
     context: resolve('/'),
     entry: {
-      main: resolve('src/index.tsx'),
+      main: resolve('src/components/smsv/index.tsx'),
     },
     output: {
       path: resolve('dist/'),
