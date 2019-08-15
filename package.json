@@ -1,6 +1,6 @@
 {
   "name": "@thebund1st/daming-ui",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "private": false,
   "dependencies": {
     "@types/react": "^16.8.24",
@@ -53,7 +53,7 @@
     "test": "yarn e2e"
   },
   "devDependencies": {
-    "@types/node": "^12.7.1",
+    "@types/node": "^12.7.2",
     "webpack-bundle-analyzer": "^3.4.1",
     "webpack-dev-server": "^3.7.2"
   },

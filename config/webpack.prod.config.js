@@ -11,35 +11,15 @@ module.exports = merge(common(), {
   mode: 'production',
   bail: true,
   stats: {
-    cached: true,
+    cached: false,
     chunks: false,
     chunkModules: false,
     colors: true,
     modules: false,
   },
   optimization: {
-    minimize: true,
-    splitChunks: {
-      chunks: 'all',
-      minChunks: 1,
-      maxAsyncRequests: 5,
-      maxInitialRequests: 3,
-      name: true,
-      cacheGroups: {
-        default: {
-          minChunks: 2,
-          priority: -20,
-          reuseExistingChunk: true,
-        },
-        vendors: {
-          test: /[\\/]node_modules[\\/]/,
-          priority: -10,
-        },
-      },
-    },
-    runtimeChunk: {
-      name: 'runtime',
-    },
+    minimize: false,
+    splitChunks: false,
   },
   plugins: [
     new CleanWebpackPlugin(['dist'], {

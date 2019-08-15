@@ -34,10 +34,15 @@ module.exports = function(mode) {
     output: {
       path: resolve('dist/'),
       publicPath: '/',
-      filename: 'js/[name].js',
-      chunkFilename: 'js/[name].[chunkhash:8].chunk.js',
+      // filename: 'js/[name].js',
+      // chunkFilename: 'js/[name].[chunkhash:8].chunk.js',
+      // library: 'MyLibrary',
+      // libraryTarget: 'amd',
+      filename: 'helloMsg.min.js',
+      libraryTarget: 'umd',
+      umdNamedDefine: true,
     },
-    devtool: 'inline-source-map',
+    // devtool: 'inline-source-map',
     module: {
       rules: [
         // {
@@ -142,12 +147,12 @@ module.exports = function(mode) {
           title: 'Typescript error',
         }),
       !isDev && miniCss,
-      new HtmlWebpackPlugin({
-        template: resolve('index.html'),
-        filename: 'index.html',
-        env: process.env.NODE_ENV,
-      }),
-      new InlineManifestWebpackPlugin(),
+      // new HtmlWebpackPlugin({
+      //   template: resolve('index.html'),
+      //   filename: 'index.html',
+      //   env: process.env.NODE_ENV,
+      // }),
+      // new InlineManifestWebpackPlugin(),
     ].filter(Boolean),
   }
 }
