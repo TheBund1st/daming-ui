@@ -3,6 +3,8 @@ module.exports = {
     phoneInput: '.smsv-phone-number-container input',
     fetchCodeBtn: '.smsv-code-verification-container button',
     codeInput: '.smsv-code-verification-container input',
+    codeErrorMsg:
+      '.smsv-code-verification-container .smsv-code-verification-error-tips',
     agreementPretext: '.smsv-agreement-container .smsv-agreement-pretext',
     verifyBtn: '.smsv-submit-button-container button',
     errorMsgContainer: '.smsv-error-message-container',

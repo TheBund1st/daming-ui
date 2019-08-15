@@ -3,7 +3,7 @@
 const { smsv_selector, smsv_validPhone } = require('../utils/variable')
 
 module.exports = {
-  'happy pass': async function(browser) {
+  'happy pass': function(browser) {
     const devServer = browser.globals.devServerURL
 
     let result = browser

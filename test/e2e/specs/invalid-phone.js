@@ -3,7 +3,7 @@
 const { smsv_selector } = require('../utils/variable')
 
 module.exports = {
-  'invalid format phone': async function(browser) {
+  'invalid phone format': function(browser) {
     const devServer = browser.globals.devServerURL
 
     let result = browser
@@ -22,7 +22,7 @@ module.exports = {
 
     result.end()
   },
-  'unregister phone': async function(browser) {
+  'unregister phone': function(browser) {
     const devServer = browser.globals.devServerURL
 
     let result = browser
@@ -36,10 +36,9 @@ module.exports = {
     result.click(smsv_selector.fetchCodeBtn)
 
     // check verify btn not enable
-    result.expect.element(smsv_selector.verifyBtn).to.not.be.enabled
+    result.expect.element(smsv_selector.verifyBtn).to.not.be.enabled // check msg container
 
-    // check msg container
-    result.expect.element(smsv_selector.errorMsgContainer).to.be.present
+    result.waitForElementVisible(smsv_selector.errorMsgContainer, 500)
 
     result.end()
   },
