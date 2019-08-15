@@ -30,7 +30,7 @@ export class Submit extends Component<Props, State> {
   render() {
     let { isBtnEnable } = this.state
     return (
-      <div className="smsv-submit-button-container">
+      <div className="smsv-submit-container">
         <Button disabled={isBtnEnable} onClick={this.onClick}>
           登陆
         </Button>

@@ -24,7 +24,7 @@ class App extends React.Component {
   render() {
     return (
       <>
-        <div className="smsv-container">
+        <div className="container">
           <smsv.Container
             onFetchCode={this.onFetchCode}
             onVerifyCode={this.onVerifyCode}

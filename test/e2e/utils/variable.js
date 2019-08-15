@@ -7,7 +7,7 @@ module.exports = {
     codeErrorMsg:
       '.smsv-code-verification-container .smsv-code-verification-error-tips',
     agreementPretext: '.smsv-agreement-container .smsv-agreement-pretext',
-    verifyBtn: '.smsv-submit-button-container button',
+    verifyBtn: '.smsv-submit-container button',
     errorMsgContainer: '.smsv-error-message-container',
   },
   smsv_validPhone: {

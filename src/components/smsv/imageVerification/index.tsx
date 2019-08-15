@@ -104,7 +104,7 @@ export class ImageVerification extends Component<Props, State> {
     } = this.state
     const { codeLength } = this.props
     return (
-      <div className="smsv-image-number-container">
+      <div className="smsv-image-verification-container">
         <div className="smsv-input-canvas-container">
           <div className="smsv-input-container">
             <Input
@@ -118,7 +118,7 @@ export class ImageVerification extends Component<Props, State> {
               }}
               className={
                 inputImageNumberErrorStatus
-                  ? 'smsv-image-number-error-input'
+                  ? 'smsv-image-verification-error-input'
                   : ''
               }
             />
@@ -139,7 +139,7 @@ export class ImageVerification extends Component<Props, State> {
           </div>
         </div>
         {inputImageNumberErrorStatus && (
-          <div className="smsv-image-number-error-tips">{errorTips}</div>
+          <div className="smsv-image-verification-error-tips">{errorTips}</div>
         )}
       </div>
     )

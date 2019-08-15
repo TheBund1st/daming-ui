@@ -7,7 +7,6 @@ import { Submit } from './submit'
 import { ErrorMessage } from './errorMessage'
 import { EventsHub } from './eventsHub'
 import { cloneDeep } from 'lodash-es'
-import './index.scss'
 
 const SMSVControls = [
   Agreement,
@@ -113,7 +112,7 @@ class Container extends React.Component<Props, State> {
     this.eventsHub.changeSubmitStatus(isSubmitDisable)
   }
   render() {
-    return <div className="daming-ui-container">{this.children}</div>
+    return <div className="smsv-container">{this.children}</div>
   }
 }
 
