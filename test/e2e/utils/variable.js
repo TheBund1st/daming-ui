@@ -1,0 +1,18 @@
+module.exports = {
+  smsv_selector: {
+    phoneInput: '.smsv-phone-number-container input',
+    fetchCodeBtn: '.smsv-code-verification-container button',
+    codeInput: '.smsv-code-verification-container input',
+    agreementPretext: '.smsv-agreement-container .smsv-agreement-pretext',
+    verifyBtn: '.smsv-submit-button-container button',
+    errorMsgContainer: '.smsv-error-message-container',
+  },
+  smsv_validPhone: {
+    number: '18522223333',
+    code: '2333',
+  },
+  smsv_phoneCodeNotMatch: {
+    number: '18511112222',
+    code: '2333',
+  },
+}

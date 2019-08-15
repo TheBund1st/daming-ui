@@ -1,22 +1,22 @@
 // For authoring Nightwatch tests, see
 // http://nightwatchjs.org/guide#usage
-const { smsv_selector, smsv_validPhone } = require('../utils/variable')
+const { smsv_selector, smsv_phoneCodeNotMatch } = require('../utils/variable')
 
 module.exports = {
-  'happy pass': async function(browser) {
+  'phone and code not match': async function(browser) {
     const devServer = browser.globals.devServerURL
 
     let result = browser
       .url(devServer)
       .waitForElementVisible('#root', 2000)
-      .setValue(smsv_selector.phoneInput, smsv_validPhone.number)
+      .setValue(smsv_selector.phoneInput, smsv_phoneCodeNotMatch.number)
 
     // check fetch code btn enable
     result.expect.element(smsv_selector.fetchCodeBtn).to.be.enabled
 
     result
       .click(smsv_selector.fetchCodeBtn)
-      .setValue(smsv_selector.codeInput, smsv_validPhone.code)
+      .setValue(smsv_selector.codeInput, smsv_phoneCodeNotMatch.code)
 
     result.elements('css selector', smsv_selector.agreementPretext, preText => {
       preText.value.forEach(x => {
@@ -29,7 +29,7 @@ module.exports = {
       result
         .click(smsv_selector.verifyBtn)
         // check error message area
-        .expect.element(smsv_selector.errorMsgContainer).to.not.be.present
+        .waitForElementVisible(smsv_selector.errorMsgContainer, 500)
 
       result.end()
     })
