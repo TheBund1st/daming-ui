@@ -14,8 +14,21 @@ module.exports = {
     number: '18522223333',
     code: '2333',
   },
-  smsv_phoneCodeNotMatch: {
+  smsv_validPhone2: {
+    number: '18511112222',
+  },
+  smsv_codeMismatch: {
     number: '18511112222',
     code: '2333',
+  },
+  smsv_invalidPhone: {
+    number: '18500001111',
+  },
+  smsv_invalidCode: {
+    number: '18522223333',
+    code: '0023',
+  },
+  smsv_tooManyRequest: {
+    number: '13912222274',
   },
 }

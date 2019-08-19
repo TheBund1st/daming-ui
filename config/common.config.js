@@ -42,7 +42,7 @@ module.exports = function(mode) {
         // },
         {
           test: /\.(tsx?|jsx?)/,
-          include: resolve('example'),
+          include: [resolve('example'), resolve('src')],
           use: ['happypack/loader?id=ts-loader'],
         },
         {

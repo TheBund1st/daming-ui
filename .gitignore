@@ -19,6 +19,5 @@
 .env.production.local
 
 *.log
-/test/e2e/reports/*
-/dist
+/example/test/e2e/reports/*
 ß
