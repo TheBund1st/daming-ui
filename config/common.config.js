@@ -1,6 +1,5 @@
 const path = require('path')
 const webpack = require('webpack')
-// const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const getHappypacks = require('./happypack.plugin')
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin')
@@ -24,22 +23,6 @@ module.exports = function(mode) {
     devtool: 'inline-source-map',
     module: {
       rules: [
-        // {
-        //   test: /\.js/,
-        //   include: [resolve('example'), /\/node_modules\/react-native-svg/],
-        //   use: {
-        //     loader: 'babel-loader',
-        //     options: {
-        //       presets: ['@babel/preset-env'],
-        //       plugins: [
-        //         '@babel/plugin-transform-react-jsx',
-        //         '@babel/plugin-transform-runtime',
-        //         ['@babel/plugin-proposal-decorators', { legacy: true }],
-        //       ],
-        //       cacheDirectory: true,
-        //     },
-        //   },
-        // },
         {
           test: /\.(tsx?|jsx?)/,
           include: [resolve('example'), resolve('src')],
@@ -70,19 +53,6 @@ module.exports = function(mode) {
             },
           ],
         },
-        // {
-        //   test: /\.svg$/,
-        //   include: resolve('example/svgs'),
-        //   use: [
-        //     {
-        //       loader: '@svgr/webpack',
-        //       options: {
-        //         native: true,
-        //       },
-        //     },
-        //     'file-loader',
-        //   ],
-        // },
         {
           test: /\.(jpe?g|png|gif|ogg|mp3)$/,
           use: [
@@ -102,13 +72,6 @@ module.exports = function(mode) {
       ],
     },
     resolve: {
-      alias: {
-        '@': resolve('example'),
-        '@p': resolve('example/pages'),
-        '@c': resolve('example/components'),
-        '@s': resolve('example/stores'),
-        // style: resolve('example/styles'),
-      },
       extensions: ['.ts', '.tsx', '.js', '.json', 'scss'],
     },
     plugins: [
