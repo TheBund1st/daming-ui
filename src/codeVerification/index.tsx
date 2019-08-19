@@ -4,6 +4,10 @@ import { Input, Button } from 'antd'
 import './index.scss'
 type Props = {
   limitClickInterval: number
+  codeLen: number
+  config?: {
+    errorMsg1: ''
+  }
 }
 type State = {
   codeVerification: string
@@ -13,6 +17,7 @@ type State = {
   isBtnEnable: boolean
   inputCodeVerificationErrorStatus: boolean
   limitClickInterval: number
+  setBtnTextTimeOut: any
 }
 export class CodeVerification extends Component<Props, State> {
   constructor(props: Props) {
@@ -21,6 +26,7 @@ export class CodeVerification extends Component<Props, State> {
   }
   static defaultProps = {
     limitClickInterval: 3,
+    codeLen: 4,
   }
   state: State = {
     isBtnEnable: true,
@@ -30,14 +36,28 @@ export class CodeVerification extends Component<Props, State> {
     errorTips: '输入验证码',
     codeVerificationBtnText: '获取验证码',
     limitClickInterval: this.props.limitClickInterval,
+    setBtnTextTimeOut: null,
   }
   sendCodeStatus = (statusQueue: object) => {
-    const { limitClickInterval } = this.state
+    const { setBtnTextTimeOut } = this.state
     let statusKeeper = true
-    statusKeeper = limitClickInterval === this.props.limitClickInterval
     for (let key in statusQueue) {
       if (key < this.componentKey) {
         statusKeeper = statusKeeper && statusQueue[key]
+      }
+    }
+    if (statusKeeper) {
+      if (setBtnTextTimeOut) {
+        this.setState(
+          {
+            setBtnTextTimeOut: null,
+            codeVerificationBtnText: '获取验证码',
+            limitClickInterval: this.props.limitClickInterval,
+          },
+          () => {
+            clearTimeout(setBtnTextTimeOut)
+          }
+        )
       }
     }
     this.setState({
@@ -61,9 +81,9 @@ export class CodeVerification extends Component<Props, State> {
     }
   }
   setBtnText = () => {
-    let { limitClickInterval } = this.state
+    let { limitClickInterval, setBtnTextTimeOut } = this.state
     limitClickInterval--
-    setTimeout(() => {
+    setBtnTextTimeOut = setTimeout(() => {
       this.setState({
         codeVerificationBtnText: `${limitClickInterval}秒后重试`,
         limitClickInterval,
@@ -71,33 +91,38 @@ export class CodeVerification extends Component<Props, State> {
       if (limitClickInterval === 0) {
         this.setState({
           codeVerificationBtnText: '获取验证码',
+          limitClickInterval: this.props.limitClickInterval,
         })
         this.sendCodeStatus(this.eventsHub.sendSMSVControlStatusCache())
       } else {
         this.setBtnText()
       }
     }, 1000)
+    this.setState({
+      setBtnTextTimeOut,
+    })
   }
   onCodeVerificationChange = event => {
     const code = event.target.value.trim()
+    let errorTips = ''
+    if (code === '') {
+      errorTips = '请输入正确的验证码'
+    } else if (code.length > this.props.codeLen) {
+      errorTips = '验证码错误'
+    }
     this.setState({
       codeVerification: code,
-      inputCodeVerificationErrorStatus: code === '',
+      setBtnTextTimeOut: null,
+      inputCodeVerificationErrorStatus:
+        code === '' || code.length > this.props.codeLen,
+      errorTips,
     })
     this.eventsHub.changeCode(code)
     this.eventsHub.changeSMSVStatus(code !== '', this.componentKey)
   }
   onBlur = () => {
     const { codeVerification } = this.state
-    let inputCodeVerificationErrorStatus = codeVerification === ''
-    this.setState({
-      inputCodeVerificationErrorStatus,
-    })
-    if (inputCodeVerificationErrorStatus) {
-      this.eventsHub.changeCode('')
-    } else {
-      this.eventsHub.changeCode(codeVerification)
-    }
+    this.onCodeVerificationChange({ target: { value: codeVerification } })
   }
   render() {
     const {
@@ -115,6 +140,7 @@ export class CodeVerification extends Component<Props, State> {
             value={codeVerification}
             placeholder={placeHolder}
             onChange={this.onCodeVerificationChange}
+            onBlur={this.onBlur}
           />
           <Button type="primary" disabled={isBtnEnable} onClick={this.sendCode}>
             {codeVerificationBtnText}

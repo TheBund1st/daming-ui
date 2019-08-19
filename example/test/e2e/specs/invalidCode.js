@@ -9,7 +9,6 @@ const {
 module.exports = {
   'invalid code format': function(browser) {
     // TODO: waiting for code format check
-    return
     const devServer = browser.globals.devServerURL
 
     let result = browser
