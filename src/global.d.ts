@@ -3,11 +3,8 @@ type Events = {
   code: string
   onSubmitStatusChange: (enable: boolean) => void
   onSMSVStatusChange: (enable: boolean, component: string) => void
-  onSMSVSendCodeStatusChange: (enable: boolean, component: string) => void
-  onPhoneNumberChange: (phoneNumber: string) => void
-  onSendCodeStatusChange: (statusQueue: object) => void
+  onSendCodeStatusChange: (enable: boolean) => void
   fetchSMSVCode: () => void
   verifySMSVCode: () => void
-  onRequestSMSVControlStatusCache: () => object
   onResponseErrorMessage: (msg: string) => void
 }

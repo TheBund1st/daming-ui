@@ -3,10 +3,13 @@ import { Component } from '../baseComponent'
 import { Input, Button } from 'antd'
 import './index.scss'
 type Props = {
-  limitClickInterval: number
+  fetchCodeIntervalSecond: number
   codeLen: number
   config?: {
-    errorMsg1: ''
+    errorMsg?: {
+      emptyCode: string
+      lengthMismatch: string
+    }
   }
 }
 type State = {
@@ -14,10 +17,8 @@ type State = {
   placeHolder: string
   codeVerificationBtnText: string
   errorTips: string
-  isBtnEnable: boolean
+  isBtnDisable: boolean
   inputCodeVerificationErrorStatus: boolean
-  limitClickInterval: number
-  setBtnTextTimeOut: any
 }
 export class CodeVerification extends Component<Props, State> {
   constructor(props: Props) {
@@ -25,94 +26,80 @@ export class CodeVerification extends Component<Props, State> {
     this.eventsHub.registerSendCodeStatusChange(this.sendCodeStatus)
   }
   static defaultProps = {
-    limitClickInterval: 3,
+    fetchCodeIntervalSecond: 3,
     codeLen: 4,
+    config: {
+      errorMsg: {
+        emptyCode: '请输入验证码',
+        lengthMismatch: '验证码长度无效',
+      },
+    },
   }
   state: State = {
-    isBtnEnable: true,
+    isBtnDisable: true,
     inputCodeVerificationErrorStatus: false,
     codeVerification: '',
     placeHolder: '输入验证码',
     errorTips: '输入验证码',
     codeVerificationBtnText: '获取验证码',
-    limitClickInterval: this.props.limitClickInterval,
-    setBtnTextTimeOut: null,
   }
-  sendCodeStatus = (statusQueue: object) => {
-    const { setBtnTextTimeOut } = this.state
-    let statusKeeper = true
-    for (let key in statusQueue) {
-      if (key < this.componentKey) {
-        statusKeeper = statusKeeper && statusQueue[key]
-      }
-    }
-    if (statusKeeper) {
-      if (setBtnTextTimeOut) {
-        this.setState(
-          {
-            setBtnTextTimeOut: null,
-            codeVerificationBtnText: '获取验证码',
-            limitClickInterval: this.props.limitClickInterval,
-          },
-          () => {
-            clearTimeout(setBtnTextTimeOut)
-          }
-        )
-      }
-    }
+
+  intervalLeftSecond = 0
+  intervalInstance = null
+  resetInterval = () => {
+    this.intervalLeftSecond = this.props.fetchCodeIntervalSecond
+    this.intervalInstance && clearInterval(this.intervalInstance)
     this.setState({
-      isBtnEnable: !statusKeeper,
+      codeVerificationBtnText: '获取验证码',
+      isBtnDisable: !this.isCodeDependencyEnable,
     })
   }
-  sendCode = () => {
-    const { isBtnEnable, limitClickInterval } = this.state
-    if (!isBtnEnable) {
-      this.setState(
-        {
-          codeVerificationBtnText: `${limitClickInterval}秒后重试`,
-          isBtnEnable: true,
-          limitClickInterval: this.props.limitClickInterval,
-        },
-        () => {
-          this.setBtnText()
-          this.eventsHub.fetchSMSVCode()
-        }
-      )
-    }
-  }
-  setBtnText = () => {
-    let { limitClickInterval, setBtnTextTimeOut } = this.state
-    limitClickInterval--
-    setBtnTextTimeOut = setTimeout(() => {
+
+  setInterval = () => {
+    this.intervalLeftSecond = this.props.fetchCodeIntervalSecond
+    this.setState({
+      isBtnDisable: true,
+      codeVerificationBtnText: `${this.intervalLeftSecond--}秒后重试`,
+    })
+    this.intervalInstance = setInterval(() => {
       this.setState({
-        codeVerificationBtnText: `${limitClickInterval}秒后重试`,
-        limitClickInterval,
+        codeVerificationBtnText: `${this.intervalLeftSecond--}秒后重试`,
       })
-      if (limitClickInterval === 0) {
-        this.setState({
-          codeVerificationBtnText: '获取验证码',
-          limitClickInterval: this.props.limitClickInterval,
-        })
-        this.sendCodeStatus(this.eventsHub.sendSMSVControlStatusCache())
-      } else {
-        this.setBtnText()
+      if (this.intervalLeftSecond == -1) {
+        this.resetInterval()
       }
     }, 1000)
-    this.setState({
-      setBtnTextTimeOut,
-    })
   }
+
+  isCodeDependencyEnable = false
+  sendCodeStatus = (enable: boolean) => {
+    this.isCodeDependencyEnable = enable
+    enable && this.resetInterval()
+  }
+  sendCode = () => {
+    const { isBtnDisable } = this.state
+    if (!isBtnDisable) {
+      this.eventsHub.fetchSMSVCode()
+      this.setInterval()
+    }
+  }
+
   onCodeVerificationChange = event => {
+    const {
+      config: { errorMsg },
+    } = this.props
+
     const code = event.target.value.trim()
     let errorTips = ''
     if (code === '') {
-      errorTips = '请输入正确的验证码'
+      errorTips = errorMsg.emptyCode
     } else if (code.length > this.props.codeLen) {
-      errorTips = '验证码错误'
+      errorTips = errorMsg.lengthMismatch
     }
     this.setState({
       codeVerification: code,
-      setBtnTextTimeOut: null,
+      // TODO: why here
+      // setBtnTextTimeOut: null,
       inputCodeVerificationErrorStatus:
         code === '' || code.length > this.props.codeLen,
       errorTips,
@@ -129,7 +116,7 @@ export class CodeVerification extends Component<Props, State> {
       codeVerification,
       placeHolder,
       codeVerificationBtnText,
-      isBtnEnable,
+      isBtnDisable,
       inputCodeVerificationErrorStatus,
       errorTips,
     } = this.state
@@ -142,7 +129,11 @@ export class CodeVerification extends Component<Props, State> {
             onChange={this.onCodeVerificationChange}
             onBlur={this.onBlur}
           />
-          <Button type="primary" disabled={isBtnEnable} onClick={this.sendCode}>
+          <Button
+            type="primary"
+            disabled={isBtnDisable}
+            onClick={this.sendCode}
+          >
             {codeVerificationBtnText}
           </Button>
         </div>

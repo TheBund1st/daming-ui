@@ -13,13 +13,6 @@ export class EventsHub {
     this.events.onSMSVStatusChange &&
       this.events.onSMSVStatusChange(enable, componentKey)
   }
-  registerSMSVSendCodeStatusChange(onChange) {
-    this.events.onSMSVSendCodeStatusChange = onChange
-  }
-  changeSMSVSendCodeStatus(enable: boolean, componentKey: string) {
-    this.events.onSMSVSendCodeStatusChange &&
-      this.events.onSMSVSendCodeStatusChange(enable, componentKey)
-  }
   changePhoneNumber(phoneNumber: string) {
     this.events.phoneNumber = phoneNumber
   }
@@ -29,9 +22,9 @@ export class EventsHub {
   registerSendCodeStatusChange(onChange) {
     this.events.onSendCodeStatusChange = onChange
   }
-  ChangeSendCodeStatusChange(statusQueue: object) {
+  ChangeCodeVerificationStatus(enable: boolean) {
     this.events.onSendCodeStatusChange &&
-      this.events.onSendCodeStatusChange(statusQueue)
+      this.events.onSendCodeStatusChange(enable)
   }
   registerSMSVFetchCode(onChange) {
     this.events.fetchSMSVCode = onChange
@@ -44,15 +37,6 @@ export class EventsHub {
   }
   verifyCode() {
     this.events.verifySMSVCode && this.events.verifySMSVCode()
-  }
-  requestSMSVControlStatusCache(onRequest) {
-    this.events.onRequestSMSVControlStatusCache = onRequest
-  }
-  sendSMSVControlStatusCache() {
-    return (
-      this.events.onRequestSMSVControlStatusCache &&
-      this.events.onRequestSMSVControlStatusCache()
-    )
   }
   onErrorMessage(event) {
     this.events.onResponseErrorMessage = event

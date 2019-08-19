@@ -24,6 +24,8 @@ const SMSVStateControls = [
   PhoneNumber,
 ]
 
+const CodeDependency = [PhoneNumber, ImageVerification]
+
 type Props = {
   onFetchCode: (phoneNumber: string) => Promise<string>
   onVerifyCode: (params: {
@@ -36,22 +38,21 @@ type State = {
   phoneNumber: string
 }
 
+type ControlStatus = { isVerified: boolean; isCodeDependency: boolean }
+
 class Container extends React.Component<Props, State> {
   eventsHub = new EventsHub()
-  smsvControlStatusCache = {}
+  smsvControlStatusCache: {
+    [key: string]: ControlStatus
+  } = {}
   children: any[] = []
   phoneNumber = ''
   constructor(props: Props) {
     super(props)
     this.eventsHub.registerSMSVStatusChange(this.onSMSVStatusChange)
-    this.eventsHub.registerSMSVSendCodeStatusChange(
-      this.onSMSVSendCodeStatusChange
-    )
     this.eventsHub.registerSMSVFetchCode(this.onFetchCode)
     this.eventsHub.onVerifyCode(this.onVerifyCode)
-    this.eventsHub.requestSMSVControlStatusCache(
-      this.onRequestSMSVControlStatusCache
-    )
+
     this.generateChildren()
   }
   state: State = {
@@ -74,16 +75,17 @@ class Container extends React.Component<Props, State> {
       if (SMSVStateControls.includes(cloned.type)) {
         cloned.props.eventsHub = this.eventsHub
         cloned.props.componentKey = componentKey
-        this.smsvControlStatusCache[componentKey] = false
+        this.smsvControlStatusCache[componentKey] = {
+          isVerified: false,
+          isCodeDependency: CodeDependency.includes(cloned.type),
+        }
       } else if (SMSVControls.includes(cloned.type)) {
         cloned.props.eventsHub = this.eventsHub
       }
       this.children.push(cloned)
     })
   }
-  onRequestSMSVControlStatusCache = () => {
-    return this.smsvControlStatusCache
-  }
+
   onFetchCode = async () => {
     const res = await this.props.onFetchCode(this.smsvInfo.phoneNumber)
     this.eventsHub.setErrorMessage(res)
@@ -96,21 +98,25 @@ class Container extends React.Component<Props, State> {
     })
     this.eventsHub.setErrorMessage(res)
   }
-  onSMSVSendCodeStatusChange = (enable: boolean, componentKey: string) => {
-    this.smsvControlStatusCache[componentKey] = enable
-    this.eventsHub.ChangeSendCodeStatusChange(this.smsvControlStatusCache)
-    this.updateSubmitStatus()
-  }
+
   onSMSVStatusChange = (enable: boolean, componentKey: string) => {
-    this.smsvControlStatusCache[componentKey] = enable
+    this.smsvControlStatusCache[componentKey].isVerified = enable
     this.updateSubmitStatus()
+    this.updateCodeControlStatus()
+  }
+
+  updateCodeControlStatus = () => {
+    const isCodeDependencyDisable = !!Object.values(
+      this.smsvControlStatusCache
+    ).find(x => !x.isVerified && x.isCodeDependency)
+    this.eventsHub.ChangeCodeVerificationStatus(!isCodeDependencyDisable)
   }
 
   updateSubmitStatus = () => {
-    const isSubmitDisable = Object.values(this.smsvControlStatusCache).includes(
-      false
+    const isSubmitDisable = !!Object.values(this.smsvControlStatusCache).find(
+      x => !x.isVerified
     )
-    this.eventsHub.changeSubmitStatus(isSubmitDisable)
+    this.eventsHub.changeSubmitStatus(!isSubmitDisable)
   }
   render() {
     return <div className="smsv-container">{this.children}</div>
