@@ -1,17 +1,10 @@
 const path = require('path')
 const webpack = require('webpack')
 // const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
-const HtmlWebpackPlugin = require('html-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
-const InlineManifestWebpackPlugin = require('inline-manifest-webpack-plugin')
 const getHappypacks = require('./happypack.plugin')
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin')
 const ForkTsCheckerNotifierWebpackPlugin = require('fork-ts-checker-notifier-webpack-plugin')
-
-const miniCss = new MiniCssExtractPlugin({
-  filename: 'css/main.css',
-  chunkFilename: 'css/main.css',
-})
 
 function resolve(dir) {
   return path.join(__dirname, '..', dir)
@@ -28,26 +21,12 @@ module.exports = function(mode) {
   const isDev = mode == 'development'
   return {
     context: resolve('/'),
-    entry: {
-      main: resolve('src/components/smsv/index.tsx'),
-    },
-    output: {
-      path: resolve('lib/'),
-      publicPath: '/',
-      // filename: 'js/[name].js',
-      // chunkFilename: 'js/[name].[chunkhash:8].chunk.js',
-      // library: 'MyLibrary',
-      // libraryTarget: 'amd',
-      filename: 'js/main.js',
-      libraryTarget: 'umd',
-      umdNamedDefine: true,
-    },
-    // devtool: 'inline-source-map',
+    devtool: 'inline-source-map',
     module: {
       rules: [
         // {
         //   test: /\.js/,
-        //   include: [resolve('src'), /\/node_modules\/react-native-svg/],
+        //   include: [resolve('example'), /\/node_modules\/react-native-svg/],
         //   use: {
         //     loader: 'babel-loader',
         //     options: {
@@ -63,7 +42,7 @@ module.exports = function(mode) {
         // },
         {
           test: /\.(tsx?|jsx?)/,
-          include: resolve('src'),
+          include: resolve('example'),
           use: ['happypack/loader?id=ts-loader'],
         },
         {
@@ -80,7 +59,7 @@ module.exports = function(mode) {
         },
         {
           test: /\.svg$/,
-          exclude: resolve('src/svgs'),
+          exclude: resolve('example/svgs'),
           use: [
             {
               loader: 'url-loader',
@@ -93,7 +72,7 @@ module.exports = function(mode) {
         },
         // {
         //   test: /\.svg$/,
-        //   include: resolve('src/svgs'),
+        //   include: resolve('example/svgs'),
         //   use: [
         //     {
         //       loader: '@svgr/webpack',
@@ -124,11 +103,11 @@ module.exports = function(mode) {
     },
     resolve: {
       alias: {
-        '@': resolve('src'),
-        '@p': resolve('src/pages'),
-        '@c': resolve('src/components'),
-        '@s': resolve('src/stores'),
-        // style: resolve('src/styles'),
+        '@': resolve('example'),
+        '@p': resolve('example/pages'),
+        '@c': resolve('example/components'),
+        '@s': resolve('example/stores'),
+        // style: resolve('example/styles'),
       },
       extensions: ['.ts', '.tsx', '.js', '.json', 'scss'],
     },
@@ -139,20 +118,18 @@ module.exports = function(mode) {
         new ForkTsCheckerWebpackPlugin({
           checkSyntacticErrors: true,
           ignoreLintWarnings: true,
-          reportFiles: ['src/**/*'],
+          reportFiles: ['example/**/*'],
           eslint: true,
         }),
       isDev &&
         new ForkTsCheckerNotifierWebpackPlugin({
           title: 'Typescript error',
         }),
-      !isDev && miniCss,
-      // new HtmlWebpackPlugin({
-      //   template: resolve('index.html'),
-      //   filename: 'index.html',
-      //   env: process.env.NODE_ENV,
-      // }),
-      // new InlineManifestWebpackPlugin(),
+      !isDev &&
+        new MiniCssExtractPlugin({
+          filename: 'css/main.css',
+          chunkFilename: 'css/[name].[chunkhash:8].css',
+        }),
     ].filter(Boolean),
   }
 }

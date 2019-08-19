@@ -3,6 +3,13 @@
   "version": "0.3.6",
   "private": false,
   "main": "lib/index",
+  "scripts": {
+    "start": "webpack-dev-server --open --config config/webpack.dev.config.js --progress",
+    "build": "webpack --config config/webpack.build.config.js",
+    "format": "prettier --write \"example/**/*.ts\" \"example/**/*.tsx\" \"example/**/*.js\" \"example/**/*.jsx\"",
+    "e2e": "node example/test/e2e/runner.js",
+    "test": "yarn e2e"
+  },
   "dependencies": {
     "@types/react": "^16.8.24",
     "@types/react-router": "^5.0.3",
@@ -45,13 +52,6 @@
     "webpack": "^4.39.1",
     "webpack-cli": "^3.3.6",
     "webpack-merge": "^4.2.1"
-  },
-  "scripts": {
-    "start": "webpack-dev-server --open --config config/webpack.dev.config.js --progress",
-    "build": "webpack --config config/webpack.prod.config.js",
-    "format": "prettier --write \"src/**/*.ts\" \"src/**/*.tsx\" \"src/**/*.js\" \"src/**/*.jsx\"",
-    "e2e": "node test/e2e/runner.js",
-    "test": "yarn e2e"
   },
   "devDependencies": {
     "@types/node": "^12.7.2",

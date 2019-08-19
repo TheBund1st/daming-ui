@@ -5,7 +5,7 @@
 build/
 config/
 node_modules/
-src/
+example/
 test/
 *.html
 *.lock
