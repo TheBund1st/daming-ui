@@ -12,7 +12,7 @@ const prodConfig = merge(common(), {
   mode: 'production',
   bail: true,
   entry: {
-    main: resolve('example/smsv/index.tsx'),
+    main: resolve('src/index.tsx'),
   },
   output: {
     path: resolve('lib/'),

@@ -45,10 +45,10 @@
     "moduleResolution": "node" /* Specify module resolution strategy: 'node' (Node.js) or 'classic' (TypeScript pre-1.6). */,
     "baseUrl": "./" /* Base directory to resolve non-absolute module names. */,
     "paths": {
-      "@/*": ["./example/*"],
-      "@c/*": ["./example/components/*"],
-      "@p/*": ["./example/pages/*"],
-      "@s/*": ["./example/stores/*"]
+      "@/*": ["./src/*"],
+      "@c/*": ["./src/components/*"],
+      "@p/*": ["./src/pages/*"],
+      "@s/*": ["./src/stores/*"]
     },
     // "rootDirs": [],                        /* List of root folders whose combined content represents the structure of the project at runtime. */
     // "typeRoots": [],                       /* List of folders to include type definitions from. */
@@ -67,5 +67,5 @@
     "experimentalDecorators": true /* Enables experimental support for ES7 decorators. */,
     "emitDecoratorMetadata": true /* Enables experimental support for emitting type metadata for decorators. */
   },
-  "include": ["example"]
+  "include": ["src"]
 }

@@ -1,11 +1,8 @@
 import * as React from 'react'
-// import smsv from '../smsv'
 import smsv from '../../lib'
-console.log(smsv)
-
 import './App.scss'
 import { Icon } from 'antd'
-import * as authApi from '@/apis/auth'
+import * as authApi from '../apis/auth'
 class App extends React.Component {
   onFetchCode = async phoneNumber => {
     const res = await authApi.fetchCode('api/sms/verification/code', {
