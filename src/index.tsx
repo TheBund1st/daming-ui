@@ -5,7 +5,7 @@ import { ImageVerification } from './imageVerification'
 import { PhoneNumber } from './phoneNumber'
 import { Submit } from './submit'
 import { ErrorMessage } from './errorMessage'
-import { EventsHub } from './eventsHub'
+import { SmsvStore } from './smsvStore'
 import { cloneDeep } from 'lodash-es'
 
 const SMSVControls = [
@@ -41,7 +41,7 @@ type State = {
 type ControlStatus = { isVerified: boolean; isCodeDependency: boolean }
 
 class Container extends React.Component<Props, State> {
-  eventsHub = new EventsHub()
+  store = new SmsvStore()
   smsvControlStatusCache: {
     [key: string]: ControlStatus
   } = {}
@@ -49,9 +49,9 @@ class Container extends React.Component<Props, State> {
   phoneNumber = ''
   constructor(props: Props) {
     super(props)
-    this.eventsHub.registerSMSVStatusChange(this.onSMSVStatusChange)
-    this.eventsHub.registerSMSVFetchCode(this.onFetchCode)
-    this.eventsHub.onVerifyCode(this.onVerifyCode)
+    this.store.onSMSVStatusChange(this.onSMSVStatusChange)
+    this.store.onSMSVFetchCode(this.onFetchCode)
+    this.store.onVerifyCode(this.onVerifyCode)
 
     this.generateChildren()
   }
@@ -60,7 +60,7 @@ class Container extends React.Component<Props, State> {
   }
 
   get smsvInfo() {
-    const { phoneNumber, code } = this.eventsHub.events
+    const { phoneNumber, code } = this.store.state
     return {
       code,
       phoneNumber,
@@ -73,14 +73,14 @@ class Container extends React.Component<Props, State> {
       const componentKey = index
       cloned.key = componentKey
       if (SMSVStateControls.includes(cloned.type)) {
-        cloned.props.eventsHub = this.eventsHub
+        cloned.props.eventsHub = this.store
         cloned.props.componentKey = componentKey
         this.smsvControlStatusCache[componentKey] = {
           isVerified: false,
           isCodeDependency: CodeDependency.includes(cloned.type),
         }
       } else if (SMSVControls.includes(cloned.type)) {
-        cloned.props.eventsHub = this.eventsHub
+        cloned.props.eventsHub = this.store
       }
       this.children.push(cloned)
     })
@@ -88,7 +88,7 @@ class Container extends React.Component<Props, State> {
 
   onFetchCode = async () => {
     const res = await this.props.onFetchCode(this.smsvInfo.phoneNumber)
-    this.eventsHub.setErrorMessage(res)
+    this.store.setErrorMessage(res)
   }
 
   onVerifyCode = async () => {
@@ -96,7 +96,7 @@ class Container extends React.Component<Props, State> {
       phoneNumber: this.smsvInfo.phoneNumber,
       code: this.smsvInfo.code,
     })
-    this.eventsHub.setErrorMessage(res)
+    this.store.setErrorMessage(res)
   }
 
   onSMSVStatusChange = (enable: boolean, componentKey: string) => {
@@ -109,14 +109,14 @@ class Container extends React.Component<Props, State> {
     const isCodeDependencyDisable = !!Object.values(
       this.smsvControlStatusCache
     ).find(x => !x.isVerified && x.isCodeDependency)
-    this.eventsHub.ChangeCodeVerificationStatus(!isCodeDependencyDisable)
+    this.store.changeCodeVerificationStatus(!isCodeDependencyDisable)
   }
 
   updateSubmitStatus = () => {
     const isSubmitDisable = !!Object.values(this.smsvControlStatusCache).find(
       x => !x.isVerified
     )
-    this.eventsHub.changeSubmitStatus(!isSubmitDisable)
+    this.store.changeSubmitStatus(!isSubmitDisable)
   }
   render() {
     return <div className="smsv-container">{this.children}</div>

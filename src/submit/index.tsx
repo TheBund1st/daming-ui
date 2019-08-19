@@ -14,7 +14,7 @@ export class Submit extends Component<Props, State> {
     this.state = {
       isBtnEnable: true,
     }
-    this.eventsHub.registerSubmitStatusChange(this.setSubmitStatus)
+    this.smsvStore.onSubmitStatusChange(this.setSubmitStatus)
   }
 
   setSubmitStatus = (enable: boolean) => {
@@ -24,7 +24,7 @@ export class Submit extends Component<Props, State> {
   }
 
   onClick = () => {
-    this.eventsHub.verifyCode()
+    this.smsvStore.verifyCode()
   }
 
   render() {

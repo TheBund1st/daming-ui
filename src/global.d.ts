@@ -1,4 +1,4 @@
-type Events = {
+type State = {
   phoneNumber: string
   code: string
   onSubmitStatusChange: (enable: boolean) => void

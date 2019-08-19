@@ -46,7 +46,7 @@ export class ImageVerification extends Component<Props, State> {
     this.drawVerificationCode()
   }
   drawVerificationCode = () => {
-    this.eventsHub.changeSMSVSendCodeStatus(false, this.componentKey)
+    this.smsvStore.changeSMSVStatus(false, this.componentKey)
     const verificationCodeRender = new VerificationCodeRender({
       targetCanvas: this.canvasRef,
       codeLen: this.props.codeLength,
@@ -69,7 +69,7 @@ export class ImageVerification extends Component<Props, State> {
     } else {
       inputImageNumberErrorStatus = true
     }
-    this.eventsHub.changeSMSVSendCodeStatus(
+    this.smsvStore.changeSMSVStatus(
       !inputImageNumberErrorStatus,
       this.componentKey
     )
@@ -90,7 +90,7 @@ export class ImageVerification extends Component<Props, State> {
     } else if (verificationCode.length < drawImageText.length) {
       inputImageNumberErrorStatus = false
     }
-    this.eventsHub.changeSMSVSendCodeStatus(sendCodeStatus, this.componentKey)
+    this.smsvStore.changeSMSVStatus(sendCodeStatus, this.componentKey)
     this.setState({
       verificationCode,
       inputImageNumberErrorStatus,

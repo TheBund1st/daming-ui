@@ -50,7 +50,7 @@ export class Agreement extends Component<Props, State> {
         isAgreementChecked: !prevState.isAgreementChecked,
       }),
       () => {
-        this.eventsHub.changeSMSVStatus(
+        this.smsvStore.changeSMSVStatus(
           this.state.isAgreementChecked,
           this.componentKey
         )

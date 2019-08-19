@@ -23,7 +23,7 @@ type State = {
 export class CodeVerification extends Component<Props, State> {
   constructor(props: Props) {
     super(props)
-    this.eventsHub.registerSendCodeStatusChange(this.sendCodeStatus)
+    this.smsvStore.onCodeVerificationStatusChange(this.sendCodeStatus)
   }
   static defaultProps = {
     fetchCodeIntervalSecond: 3,
@@ -79,7 +79,7 @@ export class CodeVerification extends Component<Props, State> {
   sendCode = () => {
     const { isBtnDisable } = this.state
     if (!isBtnDisable) {
-      this.eventsHub.fetchSMSVCode()
+      this.smsvStore.fetchSMSVCode()
       this.setInterval()
     }
   }
@@ -104,8 +104,8 @@ export class CodeVerification extends Component<Props, State> {
         code === '' || code.length > this.props.codeLen,
       errorTips,
     })
-    this.eventsHub.changeCode(code)
-    this.eventsHub.changeSMSVStatus(code !== '', this.componentKey)
+    this.smsvStore.changeCode(code)
+    this.smsvStore.changeSMSVStatus(code !== '', this.componentKey)
   }
   onBlur = () => {
     const { codeVerification } = this.state

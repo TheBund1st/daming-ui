@@ -11,7 +11,7 @@ type State = {
 export class ErrorMessage extends Component<Props, State> {
   constructor(props: Props) {
     super(props)
-    this.eventsHub.onErrorMessage(this.setErrorMessage)
+    this.smsvStore.onErrorMessage(this.setErrorMessage)
     this.state = {
       error: '',
     }

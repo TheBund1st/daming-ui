@@ -1,16 +1,16 @@
 import * as React from 'react'
-import { EventsHub } from './eventsHub'
+import { SmsvStore } from './smsvStore'
 
 export class Component<Props, State> extends React.Component<
-  Props & { eventsHub?: EventsHub },
+  Props & { smsvStore?: SmsvStore },
   State
 > {
   constructor(props) {
     super(props)
   }
 
-  get eventsHub() {
-    return this.props.eventsHub
+  get smsvStore() {
+    return this.props.smsvStore
   }
 
   get componentKey() {

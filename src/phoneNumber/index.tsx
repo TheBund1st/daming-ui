@@ -47,14 +47,14 @@ export class PhoneNumber extends Component<Props, State> {
     const inputPhoneNumberErrorStatus = validation(phoneNumber)
     this.setState({ phoneNumber, inputPhoneNumberErrorStatus })
 
-    this.eventsHub.changeSMSVStatus(
+    this.smsvStore.changeSMSVStatus(
       !inputPhoneNumberErrorStatus,
       this.componentKey
     )
     if (!inputPhoneNumberErrorStatus) {
-      this.eventsHub.changePhoneNumber(phoneNumber)
+      this.smsvStore.changePhoneNumber(phoneNumber)
     } else {
-      this.eventsHub.changePhoneNumber('')
+      this.smsvStore.changePhoneNumber('')
     }
   }
   onBlur = () => {
