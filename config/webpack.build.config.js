@@ -35,10 +35,10 @@ const prodConfig = merge(common(), {
     new CleanWebpackPlugin(['dist'], {
       root: path.resolve(__dirname, '../'),
     }),
-    new webpack.DefinePlugin({
-      'process.env.NODE_ENV': JSON.stringify('production'),
-    }),
     new webpack.HashedModuleIdsPlugin(),
+    new webpack.DefinePlugin({
+      'process.env.NODE_ENV': JSON.stringify('build'),
+    }),
     // new BundleAnalyzerPlugin(),
   ],
 })

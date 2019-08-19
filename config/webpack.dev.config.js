@@ -7,7 +7,9 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const InlineManifestWebpackPlugin = require('inline-manifest-webpack-plugin')
 const common = require('./common.config')
 const merge = require('webpack-merge')
-
+console.log('========================')
+console.log(process.env.NODE_ENV)
+console.log('========================')
 const PORT = 3000
 const HOST = '0.0.0.0'
 const URL = `http://${HOST}:${PORT}`
@@ -77,7 +79,7 @@ module.exports = merge(common('development'), {
     //   title: "NIO Atlas typescript error",
     // }),
     new webpack.DefinePlugin({
-      'process.env.NODE_ENV': JSON.stringify('development'),
+      'process.env.NODE_ENV': process.env.NODE_ENVs,
     }),
     new webpack.HotModuleReplacementPlugin(),
     new HtmlWebpackPlugin({

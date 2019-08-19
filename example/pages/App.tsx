@@ -1,5 +1,5 @@
 import * as React from 'react'
-import smsv from '../../lib'
+import smsv from './env'
 import './App.scss'
 import { Icon } from 'antd'
 import * as authApi from '../apis/auth'
