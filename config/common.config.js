@@ -5,11 +5,9 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const getHappypacks = require('./happypack.plugin')
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin')
 const ForkTsCheckerNotifierWebpackPlugin = require('fork-ts-checker-notifier-webpack-plugin')
-
 function resolve(dir) {
   return path.join(__dirname, '..', dir)
 }
-
 function getPostCssLoader(isDev) {
   return [
     !isDev && MiniCssExtractPlugin.loader,

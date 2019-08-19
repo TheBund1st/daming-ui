@@ -37,7 +37,7 @@ const prodConfig = merge(common(), {
     }),
     new webpack.HashedModuleIdsPlugin(),
     new webpack.DefinePlugin({
-      'process.env.NODE_ENV': JSON.stringify('build'),
+      'process.env.RUNTIME_ENV': JSON.stringify('build'),
     }),
     // new BundleAnalyzerPlugin(),
   ],

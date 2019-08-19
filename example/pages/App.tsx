@@ -3,6 +3,7 @@ import smsv from './env'
 import './App.scss'
 import { Icon } from 'antd'
 import * as authApi from '../apis/auth'
+
 class App extends React.Component {
   onFetchCode = async phoneNumber => {
     const res: any = await authApi.fetchCode('api/sms/verification/code', {

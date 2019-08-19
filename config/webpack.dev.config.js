@@ -7,9 +7,6 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const InlineManifestWebpackPlugin = require('inline-manifest-webpack-plugin')
 const common = require('./common.config')
 const merge = require('webpack-merge')
-console.log('========================')
-console.log(process.env.NODE_ENV)
-console.log('========================')
 const PORT = 3000
 const HOST = '0.0.0.0'
 const URL = `http://${HOST}:${PORT}`
@@ -79,13 +76,13 @@ module.exports = merge(common('development'), {
     //   title: "NIO Atlas typescript error",
     // }),
     new webpack.DefinePlugin({
-      'process.env.NODE_ENV': process.env.NODE_ENVs,
+      'process.env.RUNTIME_ENV': JSON.stringify(process.env.NODE_ENV),
     }),
     new webpack.HotModuleReplacementPlugin(),
     new HtmlWebpackPlugin({
       template: resolve('index.html'),
       filename: 'index.html',
-      env: process.env.NODE_ENV,
+      env: JSON.stringify(process.env.NODE_ENV),
     }),
     new InlineManifestWebpackPlugin(),
     // enable HMR globally
