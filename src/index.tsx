@@ -73,14 +73,14 @@ class Container extends React.Component<Props, State> {
       const componentKey = index
       cloned.key = componentKey
       if (SMSVStateControls.includes(cloned.type)) {
-        cloned.props.eventsHub = this.store
+        cloned.props.smsvStore = this.store
         cloned.props.componentKey = componentKey
         this.smsvControlStatusCache[componentKey] = {
           isVerified: false,
           isCodeDependency: CodeDependency.includes(cloned.type),
         }
       } else if (SMSVControls.includes(cloned.type)) {
-        cloned.props.eventsHub = this.store
+        cloned.props.smsvStore = this.store
       }
       this.children.push(cloned)
     })
