@@ -1,6 +1,6 @@
 // For authoring Nightwatch tests, see
 // http://nightwatchjs.org/guide#usage
-const { smsv_selector } = require('../utils/variable')
+const { smsv_selector, smsv_invalidPhone } = require('../utils/variable')
 
 module.exports = {
   'invalid phone format': function(browser) {
@@ -28,7 +28,7 @@ module.exports = {
     let result = browser
       .url(devServer)
       .waitForElementVisible('#root', 2000)
-      .setValue(smsv_selector.phoneInput, '18512345678')
+      .setValue(smsv_selector.phoneInput, smsv_invalidPhone.number)
 
     // check fetch code btn enable
     result.expect.element(smsv_selector.fetchCodeBtn).to.be.enabled

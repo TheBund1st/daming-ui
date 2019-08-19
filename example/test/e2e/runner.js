@@ -4,11 +4,10 @@ process.env.NODE_ENV = 'testing'
 const webpack = require('webpack')
 const DevServer = require('webpack-dev-server')
 
-const webpackConfig = require('../../../config/webpack.build.config')
 const devConfig = require('../../../config/webpack.dev.config')
 
 const devServerOptions = devConfig.devServer
-const compiler = webpack(webpackConfig)
+const compiler = webpack(devConfig)
 const server = new DevServer(compiler, devServerOptions)
 const port = devServerOptions.port
 const host = devServerOptions.host
@@ -24,7 +23,7 @@ server.listen(port, host, () => {
   // http://nightwatchjs.org/guide#settings-file
   let opts = process.argv.slice(2)
   if (opts.indexOf('--config') === -1) {
-    opts = opts.concat(['--config', 'test/e2e/nightwatch.conf.js'])
+    opts = opts.concat(['--config', 'example/test/e2e/nightwatch.conf.js'])
   }
   if (opts.indexOf('--env') === -1) {
     opts = opts.concat(['--env', 'chrome'])

@@ -1,24 +1,32 @@
 import * as React from 'react'
-import smsv from '../../lib'
+import smsv from '../../src'
 import './App.scss'
 import { Icon } from 'antd'
 import * as authApi from '../apis/auth'
 class App extends React.Component {
   onFetchCode = async phoneNumber => {
-    const res = await authApi.fetchCode('api/sms/verification/code', {
+    const res: any = await authApi.fetchCode('api/sms/verification/code', {
       scope: 'ABC',
       mobile: phoneNumber,
     })
-    return res.data.msg
+    if (res.hasError) {
+      return res.error
+    } else {
+      return ''
+    }
   }
 
   onVerifyCode = async params => {
-    const res = await authApi.verifyCode('api/sms/verification/code/verify', {
+    const res: any = await authApi.verifyCode('api/sms/verification/code', {
       scope: 'ABC',
       mobile: params.phoneNumber,
       code: params.code,
     })
-    return res.data.msg
+    if (res.hasError) {
+      return res.error
+    } else {
+      return ''
+    }
   }
 
   render() {
@@ -43,7 +51,7 @@ class App extends React.Component {
                 return status
               }}
             />
-            <smsv.ImageVerification />
+            {/* <smsv.ImageVerification /> */}
             <smsv.CodeVerification limitClickInterval={20} />
             <smsv.Agreement
               preText="登录或注册帐号即代表您同意本公司的"

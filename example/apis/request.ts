@@ -1,12 +1,19 @@
-import axios from 'axios'
+import axios, { AxiosError } from 'axios'
 
 const request = axios.create({
   timeout: 10 * 1000,
 })
 
-// request.interceptors.request.use((config: AxiosRequestConfig) => {
-//   console.log("url", config.url)
-//   return config
-// })
+request.interceptors.response.use(
+  config => {
+    return config
+  },
+  (error: AxiosError) => {
+    return {
+      hasError: true,
+      error: error.toString(),
+    }
+  }
+)
 
 export default request
