@@ -12,7 +12,9 @@ const URL = `http://${HOST}:${PORT}`
 function resolve(dir) {
   return path.join(__dirname, '..', dir)
 }
-
+console.log('========================')
+console.log(process.env.NODE_ENV)
+console.log('========================')
 module.exports = merge(common('development'), {
   mode: 'development',
   devtool: 'cheap-module-source-map',
