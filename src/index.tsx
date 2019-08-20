@@ -116,7 +116,7 @@ class Container extends React.Component<Props, State> {
     const isSubmitDisable = !!Object.values(this.smsvControlStatusCache).find(
       x => !x.isVerified
     )
-    this.store.changeSubmitStatus(!isSubmitDisable)
+    this.store.changeSubmitStatus(isSubmitDisable)
   }
   render() {
     return <div className="smsv-container">{this.children}</div>

@@ -8,7 +8,7 @@ const {
 } = require('../utils/variable')
 
 module.exports = {
-  'TODO: fetch code and waiting for the countdown': function(browser) {
+  'waiting 5s for the countdown': function(browser) {
     const devServer = browser.globals.devServerURL
 
     let result = browser
@@ -19,15 +19,11 @@ module.exports = {
 
     // check fetch code btn enable after click
     result.expect.element(smsv_selector.fetchCodeBtn).to.not.be.enabled
-
-    result.timeoutsImplicitWait(1000 * 20, function() {
-      // check fetch btn enable after 20s
-      result.expect.element(smsv_selector.fetchCodeBtn).to.be.enabled
-
-      result.end()
-    })
+    result.pause(1000 * 5).expect.element(smsv_selector.fetchCodeBtn).to.be
+      .enabled
+    result.end()
   },
-  'TODO: change phone while waiting for the countdown': function(browser) {
+  'change phone while waiting for the countdown': function(browser) {
     const devServer = browser.globals.devServerURL
 
     let result = browser
@@ -38,11 +34,12 @@ module.exports = {
 
     // check fetch code btn enable after click
     result.expect.element(smsv_selector.fetchCodeBtn).to.not.be.enabled
-
-    result.setValue(smsv_selector.phoneInput, smsv_validPhone2.number)
 
     // fetch btn should be enable after change phone
-    result.expect.element(smsv_selector.fetchCodeBtn).to.be.enabled
+    result
+      .clearValue(smsv_selector.phoneInput)
+      .setValue(smsv_selector.phoneInput, smsv_validPhone2.number)
+      .expect.element(smsv_selector.fetchCodeBtn).to.not.be.enabled
 
     result.end()
   },

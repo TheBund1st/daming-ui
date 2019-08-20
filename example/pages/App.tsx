@@ -53,7 +53,7 @@ class App extends React.Component {
               }}
             />
             {/* <smsv.ImageVerification /> */}
-            <smsv.CodeVerification fetchCodeIntervalSecond={20} />
+            <smsv.CodeVerification fetchCodeIntervalSecond={5} />
             <smsv.Agreement
               preText="登录或注册帐号即代表您同意本公司的"
               agreements={[
