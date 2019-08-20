@@ -1,12 +1,11 @@
 
 .*
-*.md
 *.yml
-build/
 config/
 node_modules/
 example/
-test/
+src/
 *.html
 *.lock
 *.json
+*.log

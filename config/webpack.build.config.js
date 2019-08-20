@@ -33,7 +33,7 @@ const prodConfig = merge(common(), {
     splitChunks: false,
   },
   plugins: [
-    new CleanWebpackPlugin(['dist'], {
+    new CleanWebpackPlugin(['lib'], {
       root: path.resolve(__dirname, '../'),
     }),
     new webpack.HashedModuleIdsPlugin(),

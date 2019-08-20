@@ -7,9 +7,9 @@ export const fetchCode = (
 
 export const verifyCode = (
   url: string,
-  params: {
+  data: {
     mobile: string
     scope: string
     code: string
   }
-) => request.delete(url, { params })
+) => request.delete(url, { data })

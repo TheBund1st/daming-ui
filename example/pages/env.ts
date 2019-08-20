@@ -1,7 +1,9 @@
-let Smsv
+let smsv
 if (process.env.RUNTIME_ENV === 'development') {
-  Smsv = require('../../lib/index').default
+  console.log('use lib')
+  smsv = require('../../lib/index').default
 } else {
-  Smsv = require('../../src/index').default
+  console.log('use src')
+  smsv = require('../../src/index').default
 }
-export default Smsv
+export default smsv

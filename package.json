@@ -1,16 +1,17 @@
 {
   "name": "@thebund1st/daming-ui",
-  "version": "0.3.19",
+  "version": "0.3.21",
   "private": false,
   "main": "lib/index",
   "scripts": {
-    "start": "cross-env NODE_ENV=development webpack-dev-server --open --config config/webpack.dev.config.js --progress",
-    "start:debug": "cross-env NODE_ENV=debugger webpack-dev-server --open --config config/webpack.dev.config.js --progress",
+    "example": "cross-env NODE_ENV=development webpack-dev-server --open --config config/webpack.dev.config.js --progress",
+    "start": "cross-env NODE_ENV=debugger webpack-dev-server --open --config config/webpack.dev.config.js --progress",
     "build": "cross-env NODE_ENV=build webpack --config config/webpack.build.config.js",
     "format": "prettier --write \"example/**/*.ts\" \"example/**/*.tsx\" \"example/**/*.js\" \"example/**/*.jsx\"",
     "e2e": "node example/test/e2e/runner.js",
-    "test": "cross-env NODE_ENV=development yarn e2e",
-    "test:debug": "cross-env NODE_ENV=debugger  yarn e2e"
+    "test:src": "cross-env NODE_ENV=debugger yarn e2e",
+    "test:lib": "cross-env NODE_ENV=development yarn e2e",
+    "prepublishOnly": "yarn build && yarn test:lib"
   },
   "dependencies": {
     "@types/react": "^16.8.24",
