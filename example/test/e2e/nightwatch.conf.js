@@ -6,7 +6,7 @@ module.exports = {
   src_folders: ['example/test/e2e/specs'],
   output_folder: 'example/test/e2e/reports',
   custom_assertions_path: ['example/test/e2e/custom-assertions'],
-  test_workers: false,
+  test_workers: true,
 
   selenium: {
     start_process: true,
@@ -27,6 +27,10 @@ module.exports = {
         devServerURL:
           'http://localhost:' + (process.env.PORT || devConfig.devServer.port),
         after(cb) {
+          process.exit(0)
+          cb()
+        },
+        afterEach(cb) {
           process.exit(0)
           cb()
         },
