@@ -15,7 +15,7 @@ module.exports = {
     port: 4444,
     cli_args: {
       'webdriver.chrome.driver': require('chromedriver').path,
-      'webdriver.gecko.driver': require('geckodriver').path,
+      // 'webdriver.gecko.driver': require('geckodriver').path,
     },
   },
 

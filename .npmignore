@@ -10,3 +10,4 @@ src/
 *.lock
 *.json
 *.log
+*.js
