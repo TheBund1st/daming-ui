@@ -1,0 +1,140 @@
+.costa-demo-container {
+  padding: 0;
+  display: flex;
+  flex-direction: row;
+  .left {
+    width: 418px;
+    height: 460px;
+    position: relative;
+    .background {
+      width: 100%;
+      display: block;
+      position: absolute;
+      top: 0;
+      left: 0;
+      border-radius: 5px 0 0 5px;
+    }
+    .guide {
+      width: 100%;
+      height: 120px;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+
+      .guide-steps {
+        width: 100%;
+        height: 38px;
+        position: relative;
+        display: flex;
+        color: #fff;
+        .vertical-line {
+          width: 1px;
+          height: 100%;
+          background: rgba(255, 255, 255, 1);
+          opacity: 0.25;
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          margin: auto;
+        }
+        .step-1 {
+          width: 50%;
+          padding-left: 76px;
+          padding-top: 3px;
+          box-sizing: border-box;
+
+          &:before {
+            content: '';
+            display: block;
+            height: 32px;
+            width: 20px;
+            background: url('./icon-phone.png');
+            background-size: 100% 100%;
+            background-repeat: no-repeat;
+            float: left;
+          }
+          .num {
+            font-size: 14px;
+            font-weight: 400;
+            opacity: 0.5;
+            margin-left: 29px;
+            line-height: 18px;
+          }
+          .step-content {
+            font-size: 14px;
+            font-weight: 400;
+            opacity: 0.7;
+            line-height: 1;
+            margin-left: 29px;
+          }
+        }
+        .step-2 {
+          width: 50%;
+          padding-left: 26px;
+          box-sizing: border-box;
+          padding-top: 3px;
+
+          &:before {
+            content: '';
+            display: block;
+            height: 30px;
+            width: 30px;
+            background: url('./icon-qr.png');
+            background-size: 100% 100%;
+            background-repeat: no-repeat;
+            float: left;
+          }
+          .num {
+            font-size: 14px;
+            font-weight: 400;
+            opacity: 0.5;
+            margin-left: 39px;
+            line-height: 18px;
+          }
+          .step-content {
+            font-size: 14px;
+            font-weight: 400;
+            opacity: 0.7;
+            line-height: 1;
+            margin-left: 39px;
+          }
+        }
+      }
+      .tips {
+        font-size: 14px;
+        font-family: PingFangSC-Regular;
+        font-weight: 400;
+        color: rgba(255, 208, 0, 1);
+        line-height: 1;
+        margin-top: 10px;
+        text-align: center;
+      }
+      .term {
+        font-size: 14px;
+        text-align: center;
+        font-family: PingFangSC-Light;
+        font-weight: 300;
+        margin-top: 3px;
+        a {
+          color: #ffd000;
+          text-decoration: underline;
+        }
+      }
+    }
+  }
+  .right {
+    width: 388px;
+    height: 460px;
+    position: relative;
+    .title {
+      width: 100%;
+      text-align: center;
+      font-size: 24px;
+      font-weight: 500;
+      color: #333;
+      margin-top: 40px;
+    }
+  }
+}
