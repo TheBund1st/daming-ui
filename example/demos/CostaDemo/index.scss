@@ -27,6 +27,7 @@
         position: relative;
         display: flex;
         color: #fff;
+        margin-top: 19px;
         .vertical-line {
           width: 1px;
           height: 100%;
@@ -117,6 +118,7 @@
         font-family: PingFangSC-Light;
         font-weight: 300;
         margin-top: 3px;
+        color: #fff;
         a {
           color: #ffd000;
           text-decoration: underline;
@@ -128,6 +130,7 @@
     width: 388px;
     height: 460px;
     position: relative;
+    font-size: 14px;
     .title {
       width: 100%;
       text-align: center;
@@ -135,6 +138,187 @@
       font-weight: 500;
       color: #333;
       margin-top: 40px;
+      margin-bottom: 30px;
+    }
+    .ant-input-prefix {
+      left: 20px;
+      .anticon {
+        font-size: 22px;
+      }
+    }
+
+    .smsv-phone-number-container {
+      width: 100%;
+      height: 74px;
+      position: relative;
+      .ant-input-affix-wrapper {
+        display: block;
+        width: 72.2%;
+        height: 48px;
+        position: relative;
+        margin: 25px auto 0;
+        .ant-input {
+          width: 100%;
+          height: 100%;
+          border-radius: 25px;
+          border: 1px solid #ddd;
+          padding-left: 55px;
+          box-sizing: border-box;
+        }
+        .ant-input-suffix {
+          position: absolute;
+          width: 80px;
+          right: 18px;
+          font-size: 12px;
+          font-weight: 400;
+          color: #aaa;
+        }
+      }
+      .smsv-phone-number-error-tips {
+        font-size: 14px;
+        font-weight: 400;
+        color: #f31d1d;
+        width: 72.2%;
+        margin: 4px auto 0;
+        padding-left: 24px;
+        box-sizing: border-box;
+        height: 22px;
+      }
+    }
+    .smsv-image-verification-container {
+      width: 100%;
+      height: 74px;
+      position: relative;
+      .smsv-input-canvas-container {
+        height: 74px;
+        .smsv-input-container {
+          width: 100%;
+          height: 100%;
+          position: absolute;
+          top: 0;
+          left: 0;
+          .smsv-image-verification-action-container {
+            height: 74px;
+          }
+        }
+      }
+      .smsv-image-verification-action-container {
+        position: absolute;
+        right: 0;
+        top: 10%;
+        #smsv-image-verification-canvas {
+          width: 63px;
+          height: 26px;
+          top: 11px;
+          right: 42px;
+        }
+        .smsv-image-verification-refresh {
+          width: 15px;
+        }
+      }
+      .ant-input-affix-wrapper {
+        display: block;
+        width: 72.2%;
+        height: 48px;
+        position: relative;
+        margin: 0 auto;
+        .ant-input {
+          width: 100%;
+          height: 100%;
+          border-radius: 25px;
+          border: 1px solid #ddd;
+          padding-left: 55px;
+          box-sizing: border-box;
+        }
+        .ant-input-suffix {
+          position: absolute;
+          width: 80px;
+          right: 18px;
+          font-size: 12px;
+          font-weight: 400;
+          color: #aaa;
+        }
+      }
+      .smsv-image-verification-error-tips {
+        font-size: 14px;
+        font-weight: 400;
+        color: #f31d1d;
+        width: 72.2%;
+        margin: 4px auto 0;
+        padding-left: 24px;
+        box-sizing: border-box;
+        height: 22px;
+      }
+    }
+    .smsv-code-verification-container {
+      width: 100%;
+      height: 74px;
+      display: block;
+      position: relative;
+      .smsv-code-verification-action-container {
+        width: 100%;
+        height: 100%;
+        position: relative;
+        .ant-input {
+          width: 72.2%;
+          height: 48px;
+          margin: 0 auto;
+          border-radius: 25px;
+          border: 1px solid #ddd;
+          padding-left: 55px;
+          box-sizing: border-box;
+        }
+        .ant-btn {
+          position: absolute;
+          right: 75px;
+          border: none;
+          font-size: 14px;
+          font-weight: 400;
+          text-decoration: underline;
+          height: 22px;
+          line-height: 22px;
+          top: 13px;
+          width: auto;
+          cursor: pointer;
+          background: #fff;
+          color: #aaa;
+          text-decoration: underline;
+          padding: 0;
+          border-radius: 0;
+          border-bottom: 2px solid #ccc;
+        }
+      }
+      .smsv-code-verification-error-tips {
+        font-size: 14px;
+        font-weight: 400;
+        color: #f31d1d;
+        width: 72.2%;
+        margin: 4px auto 0;
+        padding-left: 77px;
+        box-sizing: border-box;
+        height: 22px;
+        position: absolute;
+        bottom: 0;
+      }
+    }
+    .smsv-agreement-container {
+      width: 100%;
+      padding-left: 55px;
+      box-sizing: border-box;
+      margin-bottom: 2px;
+    }
+    .smsv-submit-container {
+      .ant-btn {
+        width: 280px;
+        height: 54px;
+        background: #ffd000;
+        border-radius: 27px;
+        margin: 10px auto 0;
+        display: block;
+        font-size: 18px;
+        font-weight: 400;
+        color: #0057a2;
+      }
     }
   }
 }

@@ -19,7 +19,7 @@ export class ImageVerification extends Component<Props, State> {
   state: State = {
     verificationCode: '',
     drawImageText: '',
-    errorTips: '验证码错误',
+    errorTips: '请输入正确的图片验证码',
     inputImageNumberErrorStatus: false,
     imageVerificationResult: false,
   }
@@ -110,7 +110,7 @@ export class ImageVerification extends Component<Props, State> {
             <Input
               maxLength={codeLength}
               value={verificationCode}
-              placeholder="请输入验证码"
+              placeholder="请输入右侧验证码"
               prefix={<Icon type="robot" />}
               onChange={this.onVerificationCodeChange}
               onBlur={() => {
