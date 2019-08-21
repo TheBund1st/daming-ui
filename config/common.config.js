@@ -1,6 +1,5 @@
 const path = require('path')
 const webpack = require('webpack')
-const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const getHappypacks = require('./happypack.plugin')
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin')
 const ForkTsCheckerNotifierWebpackPlugin = require('fork-ts-checker-notifier-webpack-plugin')
@@ -85,11 +84,6 @@ module.exports = function(mode) {
       isDev &&
         new ForkTsCheckerNotifierWebpackPlugin({
           title: 'Typescript error',
-        }),
-      !isDev &&
-        new MiniCssExtractPlugin({
-          filename: 'css/main.css',
-          chunkFilename: 'css/[name].[chunkhash:8].css',
         }),
     ].filter(Boolean),
   }

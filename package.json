@@ -26,7 +26,6 @@
     "babel-register": "^6.26.0",
     "chromedriver": "^76.0.0",
     "classnames": "^2.2.6",
-    "clean-webpack-plugin": "^0",
     "cross-spawn": "^6.0.5",
     "css-loader": "^3.1.0",
     "eslint": "^6.1.0",
@@ -46,7 +45,6 @@
     "husky": "^3.0.3",
     "inline-manifest-webpack-plugin": "^4.0.2",
     "lodash-es": "^4.17.15",
-    "mini-css-extract-plugin": "^0.8.0",
     "nightwatch": "^1.2.1",
     "postcss-flexbugs-fixes": "^4.1.0",
     "postcss-loader": "^3.0.0",
@@ -59,7 +57,6 @@
     "selenium-server": "^3.141.59",
     "style-loader": "^0.23.1",
     "ts-loader": "^6.0.4",
-    "ts-optchain": "^0.1.8",
     "typescript": "^3.3.3333",
     "url-loader": "^2.1.0",
     "webpack": "^4.39.1",
@@ -68,7 +65,6 @@
   },
   "devDependencies": {
     "@types/node": "^12.7.2",
-    "create-file-webpack": "^1.0.2",
     "cross-env": "^5.2.0",
     "webpack-bundle-analyzer": "^3.4.1",
     "webpack-dev-server": "^3.7.2"
