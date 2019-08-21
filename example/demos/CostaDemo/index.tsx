@@ -58,10 +58,10 @@ export class CostaDemo extends React.Component<Props, State> {
               onVerifyCode={this.props.onVerifyCode}
             >
               <smsv.PhoneNumber
-                placeHolder="请输入尚未注册过的手机号码"
+                placeHolder="请输入手机号"
                 maxLength={12}
                 prefix={<Icon type="mobile" />}
-                suffix={<span>* 需要尚未注册过的号码哟</span>}
+                suffix={<span>*第一次填写后不可修改</span>}
                 errorTips="手机号码格式有误"
                 validation={(phoneNum: string) => {
                   let status = false
@@ -84,42 +84,23 @@ export class CostaDemo extends React.Component<Props, State> {
                       closeText: '我知道了',
                     },
                   },
-                  {
-                    text: '隐私声明2',
-                    openByNewTabUrl: 'https://www.baidu.com',
-                  },
                 ]}
               />
               <smsv.Agreement
-                preText="我已经阅读且同意"
+                preText="我已经阅读且同意的"
                 agreements={[
                   {
-                    text: '个人信息数据的使用目的',
+                    text: '个人信息数据的使用目',
                     openByPopupInfo: {
-                      title: '个人信息数据的使用目的',
-                      content: (
-                        <>
-                          <div key={1}>
-                            1.我确认出于下述促销目的而发送内含促销和消息内容的通告,
-                            包括大奖赛、邀请函、专属打折优惠和关于 C0STA
-                            CROCIERE歌诗达邮轮最新产品和服务的遇知。
-                          </div>
-                          <div key={2}>
-                            2.我同意接收分析消典者习惯,
-                            用于定制服务和向顾客发送最有趣的讯息、顾客满意度调查问卷和顾客关怀活动.
-                          </div>
-                          <div key={3}>
-                            3.我同意向歌诗达邮轮集团内部实体及其商业合作伙伴、无论位于欧盟境内或境外披露个人数据,
-                            用于发送信息和/或与其产品和服务相关的广告资料
-                          </div>
-                        </>
-                      ),
+                      title: '隐私条款',
+                      content: <div>条款内容</div>,
                       closeText: '我知道了',
                     },
                   },
                 ]}
               />
-              <smsv.Submit />
+
+              <smsv.Submit btnText="立即登录/注册" />
               <smsv.ErrorMessage />
             </smsv.Container>
           </div>

@@ -2,7 +2,9 @@ import * as React from 'react'
 import { Component } from '../baseComponent'
 import { Button } from 'antd'
 
-type Props = {}
+type Props = {
+  btnText: string
+}
 
 type State = {
   isBtnEnable: boolean
@@ -29,10 +31,11 @@ export class Submit extends Component<Props, State> {
 
   render() {
     let { isBtnEnable } = this.state
+    let { btnText = '登录' } = this.props
     return (
       <div className="smsv-submit-container">
         <Button disabled={isBtnEnable} onClick={this.onClick}>
-          登陆
+          {btnText}
         </Button>
       </div>
     )
