@@ -15,6 +15,7 @@ module.exports = {
     port: 4444,
     cli_args: {
       'webdriver.chrome.driver': require('chromedriver').path,
+      'webdriver.gecko.driver': require('geckodriver').path,
     },
   },
 
@@ -26,12 +27,20 @@ module.exports = {
       globals: {
         devServerURL:
           'http://localhost:' + (process.env.PORT || devConfig.devServer.port),
-        after(cb) {
+
+        // it does not work !!!
+        // abortOnAssertionFailure: true,
+
+        after(browser, cb) {
           process.exit(0)
           cb()
         },
-        afterEach(cb) {
-          process.exit(0)
+        afterEach(browser, cb) {
+          if (!browser.currentTest.results.failed) {
+            process.exit(0)
+          } else {
+            process.exit(1)
+          }
           cb()
         },
       },
@@ -44,6 +53,7 @@ module.exports = {
         acceptSslCerts: true,
         chromeOptions: {
           w3c: false,
+          args: ['headless'],
         },
       },
     },
@@ -53,6 +63,9 @@ module.exports = {
         browserName: 'firefox',
         javascriptEnabled: true,
         acceptSslCerts: true,
+        'moz:firefoxOptions': {
+          args: ['--headless'],
+        },
       },
     },
   },

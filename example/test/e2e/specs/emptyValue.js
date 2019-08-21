@@ -9,7 +9,7 @@ module.exports = {
     let result = browser
       .url(devServer)
       .waitForElementVisible('#root', 2000)
-      .setValue(smsv_selector.phoneInput, '')
+      .click(smsv_selector.phoneInput)
       .setValue(smsv_selector.codeInput, smsv_validPhone.code)
 
     // check empty phone
@@ -27,7 +27,7 @@ module.exports = {
     let result = browser
       .url(devServer)
       .waitForElementVisible('#root', 2000)
-      .setValue(smsv_selector.codeInput, '')
+      .click(smsv_selector.codeInput)
       .setValue(smsv_selector.phoneInput, smsv_validPhone.number)
 
     // check empty code
