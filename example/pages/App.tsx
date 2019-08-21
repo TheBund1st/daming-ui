@@ -15,7 +15,7 @@ class App extends React.Component<Props, State> {
     super(props)
   }
   state: State = {
-    demoType: 'costa-demo',
+    demoType: 'demo',
   }
   onFetchCode = async phoneNumber => {
     const res: any = await authApi.fetchCode('api/sms/verification/code', {
