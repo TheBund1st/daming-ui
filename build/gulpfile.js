@@ -5,6 +5,7 @@ var ts = require('gulp-typescript')
 var gulpif = require('gulp-if')
 var postcss = require('gulp-postcss')
 var concat = require('gulp-concat')
+var header = require('gulp-header')
 var postcssConfig = require('../postcss.config')
 var exec = require('child_process').exec
 
@@ -15,61 +16,65 @@ var esModuleJSFile = function(file) {
   return /\.js/g.test(String(file.path))
 }
 
-gulp.task('cleanES', () => del(['../es/*', '../type/*'], { force: true }))
+var cleanES = () => del(['../es/*', '../type/*'], { force: true })
 
-gulp.task('cleanCMD', () => del(['../lib/*'], { force: true }))
+var cleanCMD = () => del(['../lib/*'], { force: true })
 
-gulp.task('buildESCSS', cb => {
-  gulp
-    .src('../src/**/*.scss')
-    .pipe(postcss(postcssConfig.plugins))
-    .pipe(concat('index.css'))
+var buildCSS = destFolder => {
+  return function buildCSS(cb) {
+    return gulp
+      .src('../src/**/*.scss')
+      .pipe(postcss(postcssConfig.plugins))
+      .pipe(concat('index.css'))
+      .pipe(gulp.dest(destFolder))
+  }
+}
+
+var importESCSS = cb => {
+  return gulp
+    .src('../es/index.js')
+    .pipe(header(`import './index.css';\n`))
     .pipe(gulp.dest('../es'))
+}
 
-  cb()
-})
-
-gulp.task('buildCMDCSS', cb => {
-  gulp
-    .src('../src/**/*.scss')
-    .pipe(postcss(postcssConfig.plugins))
-    .pipe(concat('index.css'))
+var importCMDCSS = cb => {
+  return gulp
+    .src('../lib/index.js')
+    .pipe(header(`require('./index.css');\n`))
     .pipe(gulp.dest('../lib'))
+}
 
-  cb()
-})
-
-gulp.task('buildES', cb => {
+var buildES = cb => {
   var tsProject = ts.createProject('./es.tsconfig.json')
-  gulp
+  return gulp
     .src(['../src/**/*.tsx', '../src/**/*.ts'])
     .pipe(replace(`import './index.scss'`, ''))
     .pipe(tsProject())
     .pipe(gulpif(esModuleTypeFile, gulp.dest('../type')))
     .pipe(gulpif(esModuleJSFile, gulp.dest('../es')))
+}
 
-  cb()
-})
-
-gulp.task('buildCMD', cb => {
+var buildCMD = cb => {
   var tsProject = ts.createProject('./cmd.tsconfig.json')
-  gulp
+  return gulp
     .src(['../src/**/*.tsx', '../src/**/*.ts'])
     .pipe(replace(`import './index.scss'`, ''))
     .pipe(tsProject())
     .pipe(gulp.dest('../lib'))
-
-  cb()
-})
+}
 
 gulp.task(
   'build:es',
-  gulp.series('cleanES', gulp.parallel('buildES', 'buildESCSS'))
+  gulp.series(cleanES, gulp.parallel(buildES, buildCSS('../es')), importESCSS)
 )
 
 gulp.task(
   'build:cmd',
-  gulp.series('cleanCMD', gulp.parallel('buildCMD', 'buildCMDCSS'))
+  gulp.series(
+    cleanCMD,
+    gulp.parallel(buildCMD, buildCSS('../lib')),
+    importCMDCSS
+  )
 )
 
 gulp.task('build', gulp.parallel('build:es', 'build:cmd'))

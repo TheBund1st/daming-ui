@@ -40,7 +40,7 @@ type State = {
 
 type ControlStatus = { isVerified: boolean; isCodeDependency: boolean }
 
-class Container extends React.Component<Props, State> {
+export class Container extends React.Component<Props, State> {
   store = new SmsvStore()
   smsvControlStatusCache: {
     [key: string]: ControlStatus
@@ -121,14 +121,4 @@ class Container extends React.Component<Props, State> {
   render() {
     return <div className="smsv-container">{this.children}</div>
   }
-}
-
-export default {
-  Container,
-  Agreement,
-  CodeVerification,
-  ImageVerification,
-  PhoneNumber,
-  Submit,
-  ErrorMessage,
 }

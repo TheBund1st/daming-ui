@@ -36,6 +36,7 @@
     "geckodriver": "^1.16.2",
     "gulp": "^4.0.2",
     "gulp-concat": "^2.6.1",
+    "gulp-header": "^2.0.9",
     "gulp-if": "^3.0.0",
     "gulp-postcss": "^8.0.0",
     "gulp-replace": "^1.0.0",
