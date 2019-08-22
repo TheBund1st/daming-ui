@@ -54,6 +54,7 @@ import { PhoneNumber } from './phoneNumber';
 import { Submit } from './submit';
 import { ErrorMessage } from './errorMessage';
 import { SmsvStore } from './smsvStore';
+import './container.scss';
 var cloneDeep = require('lodash.clonedeep');
 var SMSVControls = [
     Agreement,
