@@ -33,7 +33,7 @@ var ImageVerification = /** @class */ (function(_super) {
     _this.state = {
       verificationCode: '',
       drawImageText: '',
-      errorTips: '验证码错误',
+      errorTips: '请输入正确的图片验证码',
       inputImageNumberErrorStatus: false,
       imageVerificationResult: false,
     }
@@ -128,7 +128,7 @@ var ImageVerification = /** @class */ (function(_super) {
           React.createElement(Input, {
             maxLength: codeLength,
             value: verificationCode,
-            placeholder: '\u8BF7\u8F93\u5165\u9A8C\u8BC1\u7801',
+            placeholder: '\u8BF7\u8F93\u5165\u53F3\u4FA7\u9A8C\u8BC1\u7801',
             prefix: React.createElement(Icon, { type: 'robot' }),
             onChange: this.onVerificationCodeChange,
             onBlur: function() {

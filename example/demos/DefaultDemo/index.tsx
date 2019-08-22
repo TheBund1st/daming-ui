@@ -20,7 +20,7 @@ export class DefaultDemo extends React.Component<Props, State> {
   render() {
     return (
       <div className="smsv-agreement-container">
-        <div className="demo-container">
+        <div className="default-demo-container">
           <smsv.Container
             onFetchCode={this.props.onFetchCode}
             onVerifyCode={this.props.onVerifyCode}
