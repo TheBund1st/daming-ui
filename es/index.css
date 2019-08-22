@@ -1,7 +1,3 @@
-.smsv-container {
-  width: 500px;
-}
-
 .smsv-agreement-container {
   font-size: 13px;
   margin-bottom: 10px;
@@ -68,23 +64,6 @@
     line-height: 1.5;
   }
 
-.smsv-phone-number-container {
-  width: 100%;
-  height: 60px;
-}
-  .smsv-phone-number-container .smsv-phone-number-error-input input {
-      background-color: #fff;
-      border-color: #f5222d;
-    }
-  .smsv-phone-number-container .smsv-phone-number-error-tips {
-    color: #f5222d;
-    clear: both;
-    min-height: 22px;
-    margin-top: 2px;
-    font-size: 14px;
-    line-height: 1.5;
-  }
-
 .smsv-image-verification-container {
   width: 100%;
   height: 60px;
@@ -117,6 +96,23 @@
         justify-content: center;
       }
   .smsv-image-verification-container .smsv-image-verification-error-tips {
+    color: #f5222d;
+    clear: both;
+    min-height: 22px;
+    margin-top: 2px;
+    font-size: 14px;
+    line-height: 1.5;
+  }
+
+.smsv-phone-number-container {
+  width: 500px;
+  height: 60px;
+}
+  .smsv-phone-number-container .smsv-phone-number-error-input input {
+      background-color: #fff;
+      border-color: #f5222d;
+    }
+  .smsv-phone-number-container .smsv-phone-number-error-tips {
     color: #f5222d;
     clear: both;
     min-height: 22px;

@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { SmsvStore } from './smsvStore';
-import './container.scss';
 declare type Props = {
     onFetchCode: (phoneNumber: string) => Promise<string>;
     onVerifyCode: (params: {

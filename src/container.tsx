@@ -6,7 +6,6 @@ import { PhoneNumber } from './phoneNumber'
 import { Submit } from './submit'
 import { ErrorMessage } from './errorMessage'
 import { SmsvStore } from './smsvStore'
-import './container.scss'
 const cloneDeep = require('lodash.clonedeep')
 
 const SMSVControls = [
