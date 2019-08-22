@@ -1,6 +1,6 @@
 {
   "name": "@thebund1st/smsv-react",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "private": false,
   "main": "lib/index.js",
   "types": "type/index.d.ts",
