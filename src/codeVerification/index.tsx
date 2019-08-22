@@ -88,24 +88,25 @@ export class CodeVerification extends Component<Props, State> {
     const {
       config: { errorMsg },
     } = this.props
-
     const code = event.target.value.trim()
     let errorTips = ''
     if (code === '') {
       errorTips = errorMsg.emptyCode
-    } else if (code.length > this.props.codeLen) {
+    } else if (code.length !== this.props.codeLen) {
       errorTips = errorMsg.lengthMismatch
     }
+    const inputCodeVerificationErrorStatus =
+      code === '' || code.length !== this.props.codeLen
     this.setState({
       codeVerification: code,
-      // TODO: why here
-      // setBtnTextTimeOut: null,
-      inputCodeVerificationErrorStatus:
-        code === '' || code.length > this.props.codeLen,
+      inputCodeVerificationErrorStatus,
       errorTips,
     })
     this.smsvStore.changeCode(code)
-    this.smsvStore.changeSMSVStatus(code !== '', this.componentKey)
+    this.smsvStore.changeSMSVStatus(
+      !inputCodeVerificationErrorStatus,
+      this.componentKey
+    )
   }
   onBlur = () => {
     const { codeVerification } = this.state

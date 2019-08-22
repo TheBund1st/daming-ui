@@ -16,7 +16,6 @@ export class DefaultDemo extends React.Component<Props, State> {
     super(props)
     this.state = {}
   }
-
   render() {
     return (
       <div className="smsv-agreement-container">
@@ -40,7 +39,7 @@ export class DefaultDemo extends React.Component<Props, State> {
               }}
             />
             {/* <smsv.ImageVerification /> */}
-            <smsv.CodeVerification fetchCodeIntervalSecond={5} />
+            <smsv.CodeVerification fetchCodeIntervalSecond={5} codeLen={4} />
             <smsv.Agreement
               preText="登录或注册帐号即代表您同意本公司的"
               agreements={[

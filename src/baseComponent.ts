@@ -8,7 +8,6 @@ export class Component<Props, State> extends React.Component<
   constructor(props) {
     super(props)
   }
-
   get smsvStore() {
     return this.props.smsvStore
   }

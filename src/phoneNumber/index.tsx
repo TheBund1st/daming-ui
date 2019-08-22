@@ -40,6 +40,7 @@ export class PhoneNumber extends Component<Props, State> {
   onPhoneNumberChange = event => {
     const { maxLength } = this.props
     let phoneNumber = event.target.value
+    phoneNumber = phoneNumber.replace(/[^\d.]/g, '')
     if (phoneNumber.length > maxLength) {
       phoneNumber = phoneNumber.slice(0, maxLength)
     }
@@ -69,7 +70,6 @@ export class PhoneNumber extends Component<Props, State> {
     return (
       <div className="smsv-phone-number-container">
         <Input
-          type="number"
           maxLength={maxLength}
           value={phoneNumber}
           placeholder={placeHolder}

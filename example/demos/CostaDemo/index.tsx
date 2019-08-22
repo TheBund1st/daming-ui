@@ -25,7 +25,7 @@ export class CostaDemo extends React.Component<Props, State> {
             <img
               className="background"
               alt="login background"
-              src="https://s3.cn-north-1.amazonaws.com.cn/costa-media/login/login-bg.png"
+              src={require('./login-bg.png')}
             />
             <div className="guide">
               <div className="guide-steps">
@@ -52,7 +52,7 @@ export class CostaDemo extends React.Component<Props, State> {
           <div>
             <div className="title">手机登录/注册</div>
           </div>
-          <div smsv-container>
+          <div>
             <smsv.Container
               onFetchCode={this.props.onFetchCode}
               onVerifyCode={this.props.onVerifyCode}
@@ -72,7 +72,7 @@ export class CostaDemo extends React.Component<Props, State> {
                 }}
               />
               <smsv.ImageVerification />
-              <smsv.CodeVerification fetchCodeIntervalSecond={5} />
+              <smsv.CodeVerification fetchCodeIntervalSecond={5} codeLen={4} />
               <smsv.Agreement
                 preText="登录或注册帐号即代表您同意本公司的"
                 agreements={[

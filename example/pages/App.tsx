@@ -42,10 +42,35 @@ class App extends React.Component<Props, State> {
     }
   }
   handleDemoChange = e => {
-    this.setState({
-      demoType: e.target.value,
-    })
+    this.setState(
+      {
+        demoType: e.target.value,
+      },
+      () => {
+        this.renderDemo()
+      }
+    )
   }
+  renderDemo = () => {
+    const { demoType } = this.state
+    switch (demoType) {
+      case 'demo':
+        return (
+          <DefaultDemo
+            onFetchCode={this.onFetchCode}
+            onVerifyCode={this.onVerifyCode}
+          />
+        )
+      case 'costa-demo':
+        return (
+          <CostaDemo
+            onFetchCode={this.onFetchCode}
+            onVerifyCode={this.onVerifyCode}
+          />
+        )
+    }
+  }
+
   render() {
     const { demoType } = this.state
     return (
@@ -67,20 +92,7 @@ class App extends React.Component<Props, State> {
               costa-demo
             </Button>
           </div>
-          <div className="demo-container">
-            {demoType === 'demo' && (
-              <DefaultDemo
-                onFetchCode={this.onFetchCode}
-                onVerifyCode={this.onVerifyCode}
-              />
-            )}
-            {demoType === 'costa-demo' && (
-              <CostaDemo
-                onFetchCode={this.onFetchCode}
-                onVerifyCode={this.onVerifyCode}
-              />
-            )}
-          </div>
+          <div className="demo-container">{this.renderDemo()}</div>
         </div>
       </>
     )
