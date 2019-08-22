@@ -2,7 +2,6 @@
 
 # dependencies
 /node_modules
-/lib
 /.pnp
 .pnp.js
 
@@ -18,3 +17,8 @@
 
 *.log
 /example/test/e2e/reports/*
+
+# lib
+lib/
+type/
+es/

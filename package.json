@@ -6,13 +6,13 @@
   "types": "type/index.d.ts",
   "module": "es/index.js",
   "scripts": {
-    "example": "cross-env NODE_ENV=development webpack-dev-server --open --config config/webpack.dev.config.js --progress",
-    "start": "cross-env NODE_ENV=debugger webpack-dev-server --open --config config/webpack.dev.config.js --progress",
+    "example": "yarn build && cross-env PKG_ENV=lib webpack-dev-server --open --config config/webpack.dev.config.js --progress",
+    "start": "cross-env PKG_ENV=src webpack-dev-server --open --config config/webpack.dev.config.js --progress",
     "build": "gulp -f ./build/gulpfile.js build",
     "format": "prettier --write \"example/**/*.ts\" \"example/**/*.tsx\" \"example/**/*.js\" \"example/**/*.jsx\" \"src/**/*.ts\" \"src/**/*.tsx\"",
     "e2e": "node example/test/e2e/runner.js",
-    "test:src": "cross-env NODE_ENV=debugger yarn e2e",
-    "test:lib": "cross-env NODE_ENV=development yarn e2e",
+    "test:src": "cross-env PKG_ENV=src yarn e2e",
+    "test:lib": "cross-env PKG_ENV=lib yarn e2e",
     "prepublishOnly": "yarn build && yarn test:lib"
   },
   "dependencies": {

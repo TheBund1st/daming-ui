@@ -10,10 +10,7 @@ const defaultEnv = mockData.local
 const target =
   env && env.m !== undefined ? mockData[env.m] || defaultEnv : defaultEnv
 
-console.log(`
-Proxy url is:
-
-${target}\n`)
+console.log(`Proxy url is: ${target}\n`)
 
 module.exports = {
   context: pathname =>

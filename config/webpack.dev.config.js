@@ -67,13 +67,12 @@ module.exports = merge(common('development'), {
   },
   plugins: [
     new webpack.DefinePlugin({
-      'process.env.RUNTIME_ENV': JSON.stringify(process.env.NODE_ENV),
+      'process.env.PKG_ENV': JSON.stringify(process.env.PKG_ENV),
     }),
     new webpack.HotModuleReplacementPlugin(),
     new HtmlWebpackPlugin({
       template: resolve('index.html'),
       filename: 'index.html',
-      env: JSON.stringify(process.env.NODE_ENV),
     }),
     new InlineManifestWebpackPlugin(),
     // enable HMR globally
