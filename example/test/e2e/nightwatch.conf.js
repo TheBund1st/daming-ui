@@ -5,7 +5,7 @@ var devConfig = require('../../../config/webpack.dev.config')
 module.exports = {
   src_folders: ['example/test/e2e/specs'],
   output_folder: 'example/test/e2e/reports',
-  custom_assertions_path: ['example/test/e2e/custom-assertions'],
+  // custom_assertions_path: ['example/test/e2e/custom-assertions'],
   test_workers: true,
 
   selenium: {

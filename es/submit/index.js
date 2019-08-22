@@ -45,13 +45,15 @@ var Submit = /** @class */ (function(_super) {
   }
   Submit.prototype.render = function() {
     var isBtnEnable = this.state.isBtnEnable
+    var _a = this.props.btnText,
+      btnText = _a === void 0 ? '登录' : _a
     return React.createElement(
       'div',
       { className: 'smsv-submit-container' },
       React.createElement(
         Button,
         { disabled: isBtnEnable, onClick: this.onClick },
-        '\u767B\u9646'
+        btnText
       )
     )
   }
