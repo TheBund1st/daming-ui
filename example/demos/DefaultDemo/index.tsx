@@ -1,12 +1,12 @@
 import * as React from 'react'
-import smsv from '../env'
+import * as smsv from '../../../src/index'
 import './index.scss'
 
 import { Icon } from 'antd'
 
 type Props = {
-  onFetchCode: Function
-  onVerifyCode: Function
+  onFetchCode: any
+  onVerifyCode: any
 }
 
 type State = {}
