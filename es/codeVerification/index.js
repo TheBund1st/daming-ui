@@ -70,18 +70,17 @@ var CodeVerification = /** @class */ (function (_super) {
             if (code === '') {
                 errorTips = errorMsg.emptyCode;
             }
-            else if (code.length > _this.props.codeLen) {
+            else if (code.length !== _this.props.codeLen) {
                 errorTips = errorMsg.lengthMismatch;
             }
+            var inputCodeVerificationErrorStatus = code === '' || code.length !== _this.props.codeLen;
             _this.setState({
                 codeVerification: code,
-                // TODO: why here
-                // setBtnTextTimeOut: null,
-                inputCodeVerificationErrorStatus: code === '' || code.length > _this.props.codeLen,
+                inputCodeVerificationErrorStatus: inputCodeVerificationErrorStatus,
                 errorTips: errorTips,
             });
             _this.smsvStore.changeCode(code);
-            _this.smsvStore.changeSMSVStatus(code !== '', _this.componentKey);
+            _this.smsvStore.changeSMSVStatus(!inputCodeVerificationErrorStatus, _this.componentKey);
         };
         _this.onBlur = function () {
             var codeVerification = _this.state.codeVerification;

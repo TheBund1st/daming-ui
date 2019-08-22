@@ -25,6 +25,7 @@ var PhoneNumber = /** @class */ (function (_super) {
         _this.onPhoneNumberChange = function (event) {
             var maxLength = _this.props.maxLength;
             var phoneNumber = event.target.value;
+            phoneNumber = phoneNumber.replace(/[^\d.]/g, '');
             if (phoneNumber.length > maxLength) {
                 phoneNumber = phoneNumber.slice(0, maxLength);
             }
@@ -51,7 +52,7 @@ var PhoneNumber = /** @class */ (function (_super) {
         var _a = this.state, phoneNumber = _a.phoneNumber, inputPhoneNumberErrorStatus = _a.inputPhoneNumberErrorStatus;
         var _b = this.props, placeHolder = _b.placeHolder, maxLength = _b.maxLength, prefix = _b.prefix, suffix = _b.suffix, errorTips = _b.errorTips;
         return (React.createElement("div", { className: "smsv-phone-number-container" },
-            React.createElement(Input, { type: "number", maxLength: maxLength, value: phoneNumber, placeholder: placeHolder, prefix: prefix, suffix: suffix, onChange: this.onPhoneNumberChange, onBlur: this.onBlur, className: inputPhoneNumberErrorStatus ? 'smsv-phone-number-error-input' : '' }),
+            React.createElement(Input, { maxLength: maxLength, value: phoneNumber, placeholder: placeHolder, prefix: prefix, suffix: suffix, onChange: this.onPhoneNumberChange, onBlur: this.onBlur, className: inputPhoneNumberErrorStatus ? 'smsv-phone-number-error-input' : '' }),
             inputPhoneNumberErrorStatus && (React.createElement("div", { className: "smsv-phone-number-error-tips" }, errorTips))));
     };
     PhoneNumber.defaultProps = {
