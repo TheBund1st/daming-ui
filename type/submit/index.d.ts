@@ -1,7 +1,7 @@
 /// <reference types="react" />
 import { Component } from '../baseComponent';
 declare type Props = {
-    btnText: string;
+    btnText?: string;
 };
 declare type State = {
     isBtnEnable: boolean;

@@ -19,6 +19,17 @@ module.exports = {
     // check invalid code format
     result.expect.element(smsv_selector.codeErrorMsg).to.be.present
 
+    result.elements('css selector', smsv_selector.agreementPretext, preText => {
+      preText.value.forEach(x => {
+        result.elementIdClick(x.ELEMENT)
+      })
+
+      // check verify btn enable
+      result.expect.element(smsv_selector.verifyBtn).to.not.be.enabled
+
+      result.end()
+    })
+
     result.end()
   },
   'invalid code': function(browser) {

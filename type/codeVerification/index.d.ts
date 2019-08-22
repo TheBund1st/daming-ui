@@ -1,8 +1,8 @@
 /// <reference types="react" />
 import { Component } from '../baseComponent';
 declare type Props = {
-    fetchCodeIntervalSecond: number;
-    codeLen: number;
+    fetchCodeIntervalSecond?: number;
+    codeLen?: number;
     config?: {
         errorMsg?: {
             emptyCode: string;
