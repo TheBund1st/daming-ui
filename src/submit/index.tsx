@@ -3,7 +3,7 @@ import { Component } from '../baseComponent'
 import { Button } from 'antd'
 
 type Props = {
-  btnText: string
+  btnText?: string
 }
 
 type State = {

@@ -10,4 +10,4 @@ src/
 *.lock
 *.json
 *.log
-*.js
+postcss.config.js

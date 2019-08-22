@@ -3,8 +3,8 @@ import { Component } from '../baseComponent'
 import { Input, Button } from 'antd'
 import './index.scss'
 type Props = {
-  fetchCodeIntervalSecond: number
-  codeLen: number
+  fetchCodeIntervalSecond?: number
+  codeLen?: number
   config?: {
     errorMsg?: {
       emptyCode: string
