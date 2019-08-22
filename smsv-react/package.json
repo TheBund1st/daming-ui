@@ -1,7 +1,14 @@
 {
   "name": "@thebund1st/smsv-react",
-  "version": "0.0.7",
+  "version": "1.0.0",
   "private": false,
+  "keywords": [
+    "sms",
+    "sms verification",
+    "react",
+    "antd"
+  ],
+  "repository": "https://github.com/TheBund1st/daming-ui",
   "main": "lib/index.js",
   "types": "type/index.d.ts",
   "module": "es/index.js",
