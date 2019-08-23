@@ -1,10 +1,11 @@
 import * as React from 'react'
 import { Component } from '../baseComponent'
-import { Input, Button } from 'antd'
+import { Input, Button, Icon } from 'antd'
 import './index.scss'
 type Props = {
   fetchCodeIntervalSecond?: number
   codeLen?: number
+  prefix?: ReactNode
   config?: {
     errorMsg?: {
       emptyCode: string
@@ -28,6 +29,7 @@ export class CodeVerification extends Component<Props, State> {
   static defaultProps = {
     fetchCodeIntervalSecond: 3,
     codeLen: 4,
+    prefix: <Icon type="reload" />,
     config: {
       errorMsg: {
         emptyCode: '请输入验证码',
@@ -121,6 +123,7 @@ export class CodeVerification extends Component<Props, State> {
       inputCodeVerificationErrorStatus,
       errorTips,
     } = this.state
+    const { prefix } = this.props
     return (
       <div className="smsv-code-verification-container">
         <div className="smsv-code-verification-action-container">
@@ -129,6 +132,7 @@ export class CodeVerification extends Component<Props, State> {
             placeholder={placeHolder}
             onChange={this.onCodeVerificationChange}
             onBlur={this.onBlur}
+            prefix={prefix}
           />
           <Button
             type="primary"
