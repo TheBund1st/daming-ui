@@ -51,14 +51,14 @@ export class VerificationCodeRender {
     ctx.fillStyle = getRandomColor(180, 230)
     ctx.fillRect(0, 0, width, height)
     const { drawImageText, drawText } = getRandomText()
-    for (let i = 0; i < 4; i++) {
+    for (let i = 0; i < codeLen; i++) {
       let fs = getRandomNumber(18, 26)
       let deg = getRandomNumber(-30, 30)
       ctx.font = fs + 'px Simhei'
       ctx.textBaseline = 'top'
       ctx.fillStyle = getRandomColor(80, 150)
       ctx.save()
-      ctx.translate((100 / codeLen) * i + 15, 15)
+      ctx.translate((width / codeLen) * i + 15, 15)
       ctx.rotate((deg * Math.PI) / 180)
       ctx.fillText(drawText[i], -10, -10)
       ctx.restore()

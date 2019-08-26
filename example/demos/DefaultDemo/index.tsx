@@ -39,7 +39,11 @@ export class DefaultDemo extends React.Component<Props, State> {
               }}
             />
             {/* <smsv.ImageVerification /> */}
-            <smsv.CodeVerification fetchCodeIntervalSecond={5} codeLen={4} />
+            <smsv.CodeVerification
+              fetchCodeIntervalSecond={5}
+              codeLen={4}
+              prefix={<Icon type="qrcode" />}
+            />
             <smsv.Agreement
               preText="登录或注册帐号即代表您同意本公司的"
               agreements={[
