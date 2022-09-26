@@ -56,7 +56,7 @@
     "html-webpack-plugin": "^3.2.0",
     "husky": "^3.0.3",
     "inline-manifest-webpack-plugin": "^4.0.2",
-    "nightwatch": "^1.2.1",
+    "nightwatch": "^1.7.13",
     "postcss-flexbugs-fixes": "^4.1.0",
     "postcss-loader": "^3.0.0",
     "postcss-preset-env": "^6.7.0",
